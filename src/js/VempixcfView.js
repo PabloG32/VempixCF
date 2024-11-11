@@ -126,7 +126,7 @@ class VempixcfView {
     showProductos(productos) {
         const productosAleatorios = this.obtenerProductosAleatorios(productos);
         this.productosC.replaceChildren();
-        for (const producto of productos) {
+        for (const producto of productosAleatorios) {
             this.productosC.insertAdjacentHTML('beforeend', `
             <div class="col">
             <div class="card shadow-sm">
