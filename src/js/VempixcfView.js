@@ -4,6 +4,9 @@ class VempixcfView {
     constructor() {
         this.main = document.getElementsByTagName('main')[0];
         this.productosC = document.getElementById('productos-centro');
+        this.catMenu = document.getElementById('cat-menu');
+        this.categoriesMenu = document.getElementById('categories-menu');
+        this.categories = document.getElementById('cat-centro');
     }
 
     //----------------------------------------------------------USER----------------------------------------------------------------
@@ -13,7 +16,7 @@ class VempixcfView {
         userArea.replaceChildren();
         userArea.insertAdjacentHTML('afterbegin', `<div class="account d-flex
     mx-2 flex-column" style="text-align: right; height: 40px">
-    <a id="login" href="#"><i class="bi bi-person-circle" ariahidden="true"></i> Identificate</a>
+    <a id="login" href="#"><i class="bi bi-person-circle" ariahidden="true"></i><img class="mb-4" src="../img/login.png" alt="login"><i</a>
 </div>`);
     }
 
@@ -135,7 +138,7 @@ class VempixcfView {
                 <p class="card-text">${producto.nombre}</p>
                 <div class="d-flex justify-content-between align-items-center">
                     <div class="btn-group">
-                        <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#info${producto.nombre}">Ver</button>
+                        <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#info${producto.nombre}">Información</button>
                     </div>
                 </div>
             </div>
@@ -188,6 +191,56 @@ class VempixcfView {
 
 
 
+
+
+    //----------------------------------------------------------CATEGORIAS----------------------------------------------------------------
+
+    showCategoriasMenu(categorias) {
+        this.catMenu.replaceChildren();
+        for (const categoria of categorias) {
+            this.catMenu.insertAdjacentHTML('beforeend', `<li><a id="cat-menu" data-categoria="${categoria.nombre}" class="dropdown-item" href="#">${categoria.nombre}</a></li>`)
+        }
+    }
+
+
+    bindCategoriasMenu(handler) {
+        for (const li of this.catMenu.children) {
+            li.firstElementChild.addEventListener('click', (event) => {
+                handler(event.currentTarget.dataset.categoria);
+            });
+        }
+    }
+
+
+    showProductosInCategoria(productos, nombre) {
+        this.main.replaceChildren();
+        this.main.insertAdjacentHTML('afterbegin', `<h2 class="mb-4 text-center">${nombre}</h2>`);
+        let rowContainer = null; // Contenedor de cada fila de dos productos
+
+        productos.forEach((producto, index) => {
+            // Al comenzar una nueva fila
+            if (index % 2 === 0) {
+                rowContainer = document.createElement('div');
+                rowContainer.classList.add('row', 'mb-4'); // Añadimos una clase de fila
+                this.main.appendChild(rowContainer); // Añadimos la fila al contenedor principal
+            }
+
+            // Insertamos el producto dentro de la fila
+            rowContainer.insertAdjacentHTML('beforeend', `
+            <div class="col-md-6">
+                <div class="text-bg-dark me-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden">
+                    <div class="my-3 py-3">
+                        <h2 class="display-5">${producto.nombre}</h2>
+                        <p class="lead">${producto.descripcion}</p>
+                    </div>
+                    <div class="bg-body-tertiary shadow-sm mx-auto" style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;">
+                        <img src='data:image/jpg;base64,${producto.imagen}' alt="${producto.nombre}" width="100%" height="100%">
+                    </div>
+                </div>
+            </div>
+        `); // Añadimos el producto a la fila
+        });
+    }
 
 
 }

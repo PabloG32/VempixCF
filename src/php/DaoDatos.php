@@ -1,36 +1,52 @@
 <?php
-
-// Incluir el archivo de la librería DB
 include 'libreriaPDO.php';
 
-// Crear un objeto de la clase DB y pasarle el nombre de la base de datos
 $db = new DB('vempixcf');
 
-// Definir la consulta SQL para obtener los datos de productos
-$sql = "SELECT id, nombre, precio, descripcion, categoria, imagen FROM productos";
+// Las consultas SQL para obtener los datos de productos y categorías
+$sqlProd = "SELECT id, nombre, precio, descripcion, categoria, imagen FROM productos";
+$sqlCat = "SELECT id, nombre FROM categorias";
 
 try {
-    // Ejecutar la consulta y obtener los resultados
-    $resultados = $db->ConsultaDatos($sql);
+    $resultadosProd = $db->ConsultaDatos($sqlProd);
+    $resultadosCat = $db->ConsultaDatos($sqlCat);
 } catch (Exception $e) {
-    // Si ocurre un error, devolver un mensaje de error y salir
     echo json_encode(["error" => $e->getMessage()]);
     exit;
 }
 
-// Crear un arreglo para almacenar los productos
+// Crear arrays para almacenar los productos y las categorías con productos asignados
 $productos = [];
+$categorias = [];
+$productosPorCategoria = []; // Array para agrupar productos por categoría
 
-// Recorrer los resultados y convertir las imágenes a base64
-foreach ($resultados as $row) {
+// Recorrer los resultados de productos, convertir las imágenes a base64, y agrupar productos por categoría
+foreach ($resultadosProd as $row) {
     if ($row['imagen']) {
         $row['imagen'] = base64_encode($row['imagen']);
     }
     $productos[] = $row;
+
+    // Agrupar productos por categoría
+    $catId = $row['categoria'];
+    if (!isset($productosPorCategoria[$catId])) {
+        $productosPorCategoria[$catId] = [];
+    }
+    $productosPorCategoria[$catId][] = $row['nombre'];
 }
 
-// Crear el JSON final con el array "productos"
-$jsonData = json_encode(["productos" => $productos], JSON_PRETTY_PRINT);
+// Recorrer los resultados de categorías y añadir los nombres de los productos asignados
+foreach ($resultadosCat as $row) {
+    $catId = $row['id'];
+    $row['productos'] = $productosPorCategoria[$catId] ?? []; // Añadir nombres de productos
+    $categorias[] = $row;
+}
+
+// Crear el JSON final con los arrays
+$jsonData = json_encode([
+    "productos" => $productos,
+    "categorias" => $categorias
+], JSON_PRETTY_PRINT);
 
 // Guardar el JSON en un archivo
 $file = '../js/productos.json';

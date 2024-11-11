@@ -1,0 +1,92 @@
+/* Estilo general del carrusel */
+#carouselExampleCaptions {
+  position: relative;
+  max-width: 100%;
+  margin: auto;
+  overflow: hidden;
+}
+
+/* Estilo de las imágenes del carrusel */
+#carouselExampleCaptions .carousel-inner {
+  position: relative;
+}
+
+#carouselExampleCaptions .carousel-item img {
+  width: 100%; /* Hace que la imagen ocupe el 100% del contenedor */
+  height: 500px; /* Altura de las imágenes del carrusel */
+  object-fit: cover; /* Mantiene la proporción de la imagen */
+}
+
+/* Estilo de los controles (previo y siguiente) */
+.carousel-control-prev,
+.carousel-control-next {
+  position: absolute;
+  top: 50%;
+  z-index: 10;
+  transform: translate(0, -50%);
+  background-color: rgba(0, 0, 0, 0.5);
+  border: none;
+  width: 5%;
+  height: 100%;
+  color: #fff;
+  font-size: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.carousel-control-prev {
+  left: 0;
+}
+
+.carousel-control-next {
+  right: 0;
+}
+
+/* Estilo de los indicadores del carrusel */
+.carousel-indicators button {
+  background-color: #333;
+  border: 1px solid #fff;
+}
+
+.carousel-indicators .active {
+  background-color: #ff9800;
+}
+
+/* Estilo de las leyendas del carrusel */
+.carousel-caption {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #fff;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  text-align: center;
+}
+
+.carousel-caption h5 {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.carousel-caption p {
+  font-size: 1.25rem;
+}
+
+/* Ajustes para dispositivos móviles */
+@media (max-width: 768px) {
+  .carousel-caption h5 {
+    font-size: 1.5rem;
+  }
+
+  .carousel-caption p {
+    font-size: 1rem;
+  }
+
+  /* Asegura que el carrusel ocupe el ancho completo en pantallas pequeñas */
+  #carouselExampleCaptions .carousel-item img {
+    width: 100%;
+    height: auto;
+  }
+}

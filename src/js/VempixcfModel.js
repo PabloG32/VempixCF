@@ -14,7 +14,7 @@ class Producto {
     #descripcion; //Descripcion del producto
     #precio; //Valor del producto
     #imagen; //Imagen del producto
-    #categoria;
+    #categoria; //Categoria del producto
 
     //Constructor
     constructor(nombre, descripcion, precio, imagen = "", categoria) {
@@ -99,6 +99,40 @@ class Producto {
 
 
 
+class Categoria {
+    //Propiedades
+    #nombre; //Nombre de la categoría.
+
+    //Constructor
+    constructor(nombre) {
+        //Excepciones
+        if (!new.target) throw new InvalidAccessConstructorException();
+        if (!nombre) throw new EmptyValueException("nombre");
+        if (typeof nombre != "string") throw new InvalidValueException("nombre", "String");
+
+        this.#nombre = nombre;
+
+        // Propiedades de acceso a los atributos privados enumerables.
+        Object.defineProperty(this, 'nombre', {
+            enumerable: true,
+            get() {
+                return this.#nombre;
+            },
+            set(value) {
+                if (!value) throw new EmptyValueException('nombre');
+                this.#nombre = value;
+            },
+        });
+
+    }
+
+    toString() {
+        return `Category: ${this.#nombre}`;
+    }
+}
+
+
+
 
 //Excepciones
 class ManagerException extends BaseException {
@@ -131,7 +165,8 @@ let VempixcfManager = (function () {
     function init() { //Inicialización del Singleton
 
         class VempixcfManager {
-            #productos = []; //Colección de productos.
+            #productos = []; //Array de productos.
+            #categorias = []; //Array de categorias.
 
             constructor() {
                 Object.defineProperty(this, 'productos', {
@@ -147,16 +182,65 @@ let VempixcfManager = (function () {
                         };
                     },
                 });
+
+
+                Object.defineProperty(this, 'categorias', {
+                    enumerable: true,
+                    get() {
+                        const array = this.#categorias;
+                        return {
+                            *[Symbol.iterator]() {
+                                for (const arrayCategory of array) {
+                                    yield arrayCategory.categoria;
+                                }
+                            },
+                        };
+                    },
+                });
+
             }
 
             //Dado un producto, devuelve su posición.
-            #getProductoPosition(nombre) {
+            #getProductoPosicion(nombre) {
                 function compareElements(element) {
                     return (element.nombre === nombre); // Devuelve true si el nombre del elemento coincide con el nombre dado
                 }
                 // Utiliza 'findIndex' para encontrar la posición del primer elemento en '#productos' cuyo nombre coincida con 'name'
                 return this.#productos.findIndex(compareElements);
             }
+
+
+            //Dado una categoría, devuelve su posición
+            #getCategoriaPosicion(nombre) {
+                function compareElements(element) {
+                    return (element.categoria.nombre === nombre)
+                }
+
+                return this.#categorias.findIndex(compareElements);
+            }
+
+
+
+            //Obtiene un iterador con la relación de los platos a una categoría
+            *getProductosInCategoria(categoria) {
+                if (!(categoria instanceof Categoria)) {
+                    throw new ObjecManagerException('categoria', 'Categoria');
+                }
+
+                let positionCat = this.#getCategoriaPosicion(categoria.nombre);
+                if (positionCat === -1) {
+                    throw new CategoryNotExistException(categoria);
+                }
+                let productos;
+
+                productos = this.#categorias[positionCat].productos;
+
+                // Genera cada plato en la categoría
+                for (let producto of productos) {
+                    yield producto;// Devuelve el plato actual
+                }
+            }
+
 
 
             //******************************************************************Productos****************************************** */
@@ -167,7 +251,7 @@ let VempixcfManager = (function () {
                         throw new ObjecManagerException('producto', 'Producto');
                     }
                     // Obtiene la posición del plato en el manager de objetos
-                    let position = this.#getProductoPosition(producto.nombre);
+                    let position = this.#getProductoPosicion(producto.nombre);
                     if (position === -1) {  // Si el plato no existe en el manager, lo añade
                         this.#productos.push(producto);
                     } else {
@@ -179,10 +263,93 @@ let VempixcfManager = (function () {
 
             //Devuelve un objeto Dish si está registrado, o crea un nuevo
             createProducto(nombre, descripcion = "", precio, imagen = " ", categoria) {
-                let position = this.#getProductoPosition(nombre);
+                let position = this.#getProductoPosicion(nombre);
                 if (position != -1) return this.#productos[position]; // Si el producto ya existe en el manager, lo devuelve
                 return new Producto(nombre, descripcion, precio, imagen, categoria); // Si el producto no existe, crea uno nuevo y lo devuelve
             }
+
+
+
+
+
+
+
+
+
+
+
+            //******************************************************************Productos****************************************** */
+
+
+
+            //Añade una nueva categoria
+            addCategoria(...categorias) {
+                for (let categoria of categorias) {
+                    if (!(categoria instanceof Categoria)) {
+                        throw new ObjecManagerException('categoria', 'Categoria');
+                    }
+                    let position = this.#getCategoriaPosicion(categoria.nombre);
+                    if (position === -1) {
+                        this.#categorias.push(
+                            {
+                                categoria: categoria,
+                                productos: []
+                            }
+                        );
+                    } else {
+                        throw new CategoryExistsException(categoria);
+                    }
+                }
+                return this;
+            }
+
+            //Devuelve un objeto Category si está registrado, o crea un nuevo.
+            createCategoria(nombre) {
+                let position = this.#getCategoriaPosicion(nombre);
+                if (position != -1) return this.#categorias[position].categoria;
+                return new Categoria(nombre);
+            }
+
+            //Asigna un plato a una categoría. Si el objeto Category o Dish no existen se añaden al sistema.
+            assignCategoriaToProducto(categoria, ...productos) {
+                if (!(categoria instanceof Categoria)) {
+                    throw new ObjecManagerException('categoria', 'Categoria');
+                }
+
+                for (let producto of productos) {
+                    if (!(producto instanceof Producto)) {
+                        throw new ObjecManagerException('producto', 'Producto');
+                    }
+                }
+
+                let positionCat = this.#getCategoriaPosicion(categoria.nombre);
+                if (positionCat === -1) {
+                    this.addCategoria(categoria);
+                    positionCat = this.#getCategoriaPosicion(categoria.nombre);
+                }
+
+                for (let producto of productos) {
+                    let positionProducto = this.#getProductoPosicion(producto.nombre);
+                    if (positionProducto === -1) {
+                        this.addProducto(producto);
+                        positionProducto = this.#getProductoPosicion(producto.nombre);
+                    }
+
+                    // Verificar si el plato ya existe en la categoría
+                    if (this.#categorias[positionCat].productos.includes(this.#productos[positionProducto])) {
+                        throw new DishExistInCategoryException(producto, categoria);
+                    }
+
+                    // Asigna el plato a la categoría
+                    this.#categorias[positionCat].productos.push(this.#productos[positionProducto]);
+                }
+                return this;
+            }
+
+
+
+
+
 
         }
         let instance = new VempixcfManager();//Devolvemos el objeto RestaurantsManager para que sea una instancia única.
