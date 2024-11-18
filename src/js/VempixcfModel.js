@@ -10,6 +10,7 @@ import {
 
 class Producto {
     //Propiedades
+    #id;
     #nombre; //Nombre del producto
     #descripcion; //Descripcion del producto
     #precio; //Valor del producto
@@ -27,8 +28,8 @@ class Producto {
         if (typeof nombre != "string") throw new InvalidValueException("nombre", "String");
         if (typeof descripcion != "string") throw new InvalidValueException("descripcion", "String");
         if (typeof precio != "number") throw new InvalidValueException("precio", "Number");
-        // if (typeof imagen != "string") throw new InvalidValueException("imagen", "String");
 
+        this.#id;
         this.#nombre = nombre;
         this.#descripcion = descripcion;
         this.#precio = precio;
@@ -36,6 +37,16 @@ class Producto {
         this.#categoria = categoria;
 
         //Propiedades
+        Object.defineProperty(this, 'id', {
+            enumerable: true,
+            get() {
+                return this.#id;
+            },
+            set(value) {
+                if (!value) throw new EmptyValueException('id');
+                this.#id = value;
+            },
+        });
         Object.defineProperty(this, 'nombre', {
             enumerable: true,
             get() {
@@ -93,7 +104,7 @@ class Producto {
 
     }
     toString() {
-        return `Producto: ${this.#nombre} Descripción: ${this.#descripcion} Precio: ${this.#precio} Imagen: ${this.#imagen} Categoria: ${this.#categoria}`;
+        return `ID: ${this.#id}Producto: ${this.#nombre} Descripción: ${this.#descripcion} Precio: ${this.#precio} Imagen: ${this.#imagen} Categoria: ${this.#categoria}`;
     }
 }
 
@@ -112,7 +123,6 @@ class Categoria {
 
         this.#nombre = nombre;
 
-        // Propiedades de acceso a los atributos privados enumerables.
         Object.defineProperty(this, 'nombre', {
             enumerable: true,
             get() {
@@ -171,12 +181,12 @@ let VempixcfManager = (function () {
             constructor() {
                 Object.defineProperty(this, 'productos', {
                     enumerable: true,
-                    get() { // Define un método 'get' para la propiedad 'dishes'
+                    get() { // Define un método 'get' para la propiedad 'productos'
                         const array = this.#productos; // Obtiene el array privado asociado a 'productos'
                         return {
-                            *[Symbol.iterator]() { // Define un iterador para el array
-                                for (const producto of array) { // Itera sobre cada elemento del array
-                                    yield producto; // Devuelve el elemento actual del array
+                            *[Symbol.iterator]() {
+                                for (const producto of array) {
+                                    yield producto;
                                 }
                             },
                         };
@@ -203,9 +213,9 @@ let VempixcfManager = (function () {
             //Dado un producto, devuelve su posición.
             #getProductoPosicion(nombre) {
                 function compareElements(element) {
-                    return (element.nombre === nombre); // Devuelve true si el nombre del elemento coincide con el nombre dado
+                    return (element.nombre === nombre);
                 }
-                // Utiliza 'findIndex' para encontrar la posición del primer elemento en '#productos' cuyo nombre coincida con 'name'
+                // Utiliza 'findIndex' para encontrar la posición del primer elemento en '#productos' cuyo nombre coincida con 'nombre'
                 return this.#productos.findIndex(compareElements);
             }
 
@@ -221,7 +231,7 @@ let VempixcfManager = (function () {
 
 
 
-            //Obtiene un iterador con la relación de los platos a una categoría
+            //Obtiene un iterador con la relación de los productos a una categoría
             *getProductosInCategoria(categoria) {
                 if (!(categoria instanceof Categoria)) {
                     throw new ObjecManagerException('categoria', 'Categoria');
@@ -235,9 +245,8 @@ let VempixcfManager = (function () {
 
                 productos = this.#categorias[positionCat].productos;
 
-                // Genera cada plato en la categoría
                 for (let producto of productos) {
-                    yield producto;// Devuelve el plato actual
+                    yield producto;
                 }
             }
 
@@ -250,9 +259,9 @@ let VempixcfManager = (function () {
                     if (!(producto instanceof Producto)) {
                         throw new ObjecManagerException('producto', 'Producto');
                     }
-                    // Obtiene la posición del plato en el manager de objetos
+                    // Obtiene la posición del producto en el manager de objetos
                     let position = this.#getProductoPosicion(producto.nombre);
-                    if (position === -1) {  // Si el plato no existe en el manager, lo añade
+                    if (position === -1) {
                         this.#productos.push(producto);
                     } else {
                         throw new ProductoExistsException(producto);
@@ -261,11 +270,11 @@ let VempixcfManager = (function () {
                 return this;
             }
 
-            //Devuelve un objeto Dish si está registrado, o crea un nuevo
+            //Devuelve un objeto producto si está registrado, o crea un nuevo
             createProducto(nombre, descripcion = "", precio, imagen = " ", categoria) {
                 let position = this.#getProductoPosicion(nombre);
-                if (position != -1) return this.#productos[position]; // Si el producto ya existe en el manager, lo devuelve
-                return new Producto(nombre, descripcion, precio, imagen, categoria); // Si el producto no existe, crea uno nuevo y lo devuelve
+                if (position != -1) return this.#productos[position];
+                return new Producto(nombre, descripcion, precio, imagen, categoria);
             }
 
 
@@ -303,14 +312,14 @@ let VempixcfManager = (function () {
                 return this;
             }
 
-            //Devuelve un objeto Category si está registrado, o crea un nuevo.
+            //Devuelve un objeto Categoria si está registrado, o crea un nuevo.
             createCategoria(nombre) {
                 let position = this.#getCategoriaPosicion(nombre);
                 if (position != -1) return this.#categorias[position].categoria;
                 return new Categoria(nombre);
             }
 
-            //Asigna un plato a una categoría. Si el objeto Category o Dish no existen se añaden al sistema.
+            //Asigna un producto a una categoría. Si el objeto Categoria o Producto no existen se añaden al sistema.
             assignCategoriaToProducto(categoria, ...productos) {
                 if (!(categoria instanceof Categoria)) {
                     throw new ObjecManagerException('categoria', 'Categoria');
@@ -335,12 +344,12 @@ let VempixcfManager = (function () {
                         positionProducto = this.#getProductoPosicion(producto.nombre);
                     }
 
-                    // Verificar si el plato ya existe en la categoría
+                    // Verificar si el producto ya existe en la categoría
                     if (this.#categorias[positionCat].productos.includes(this.#productos[positionProducto])) {
                         throw new DishExistInCategoryException(producto, categoria);
                     }
 
-                    // Asigna el plato a la categoría
+                    // Asigna el producto a la categoría
                     this.#categorias[positionCat].productos.push(this.#productos[positionProducto]);
                 }
                 return this;
@@ -352,7 +361,7 @@ let VempixcfManager = (function () {
 
 
         }
-        let instance = new VempixcfManager();//Devolvemos el objeto RestaurantsManager para que sea una instancia única.
+        let instance = new VempixcfManager();//Devolvemos el objeto VempixcfManager para que sea una instancia única.
         Object.freeze(instance);
         return instance;
     }
@@ -368,7 +377,7 @@ let VempixcfManager = (function () {
 })();
 
 export {
-    Producto
+    Producto, Categoria
 };
 
 export default VempixcfManager;

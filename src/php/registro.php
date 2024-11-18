@@ -11,10 +11,7 @@ if (isset($_POST['alta'])) {
 
     $email = $_POST['email'];
 
-    $salt1 = "~#!()=";
-    $salt2 = "?)=€@";
-    $password = $salt1 . $_POST['password'] . $salt2;
-    $password = sha1($password);
+    $password = sha1($_POST['password']);
 
     $direccion = $_POST['direccion'];
 
@@ -34,7 +31,7 @@ if (isset($_POST['alta'])) {
     echo "
         <script>
             alert('Usuario creado correctamente');
-            window.location.href = '/VempixCF/src/html/index.html';
+            window.location.href = '/vempixcf2/VempixCF/src/html/index.html';
         </script>";
     exit;
 }
