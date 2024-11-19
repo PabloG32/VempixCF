@@ -16,6 +16,8 @@ class VempixcfController {
         this[VIEW].showIdentificationLink();
         this[VIEW].bindIdentificationLink(this.handleLoginForm);
         this.onCategorias();
+        this[VIEW].showAdminMenu();
+        this[VIEW].bindNewProducto(this.handlerNewProducto);
 
     }
 
@@ -48,7 +50,7 @@ class VempixcfController {
     async createData() {
         await fetch("../js/productos.json", { method: "post" }).then((response) => response.json()).then((data) => {
             for (const producto of data.productos) {
-                this[MODEL].addProducto(this[MODEL].createProducto(producto.nombre, producto.descripcion, producto.precio, producto.imagen, producto.categoria));
+                this[MODEL].addProducto(this[MODEL].createProducto(producto.nombre, producto.descripcion, producto.precio, producto.imagen, producto.categoria, producto.id));
             }
 
             for (const categoria of data.categorias) {
@@ -80,6 +82,11 @@ class VempixcfController {
         const categoria = this[MODEL].createCategoria(nombre);
         const productos = this[MODEL].getProductosInCategoria(categoria);
         this[VIEW].showProductosInCategoria(productos, nombre);
+    }
+
+    //Creacion de productos
+    handlerNewProducto = () => {
+        this[VIEW].showMenuProducto();
     }
 }
 export default VempixcfController;

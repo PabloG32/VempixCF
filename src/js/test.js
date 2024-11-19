@@ -24,7 +24,7 @@ const manager = VempixcfManager.getInstance();
 // console.log("Mostrar valores: ");
 // console.log(prodcuto.toString());
 
-const fr = manager.createProducto("Prueba2", "pruebaaaaa", 12, "combas", 2);
+const fr = manager.createProducto("Prueba2", "pruebaaaaa", 12, "combas", 2, 12);
 
 try {
     const f = manager.addProducto(fr)

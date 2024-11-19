@@ -7,6 +7,7 @@ class VempixcfView {
         this.catMenu = document.getElementById('cat-menu');
         this.categoriesMenu = document.getElementById('categories-menu');
         this.categories = document.getElementById('cat-centro');
+        this.menu = document.querySelector('#nav-menu');
     }
 
     //----------------------------------------------------------USER----------------------------------------------------------------
@@ -40,6 +41,7 @@ class VempixcfView {
                     <input type="checkbox" value="remember-me"> <label>Recordar</label>
                     <input class="botons" type="submit" value="Iniciar sesion">
                     <p><a id="registro" href="#">No tengo cuenta</a></p>
+                    <input class="botons" onclick="window.location.href='../html/index.html';" type="button" value="Salir">
                 </form>
             </section>
         `;
@@ -67,6 +69,7 @@ class VempixcfView {
                         required>
                     <p>Estoy de acuerdo con <a href="#">Terminos y Condiciones</a></p>
                     <input class="botons" type="submit" name="alta" value="Registrarse">
+                    <input class="botons" onclick="window.location.href='../html/index.html';" type="button" name="alta" value="Salir">
                 </form>
             </section>
         `;
@@ -88,7 +91,7 @@ class VempixcfView {
               <p class="card-text">${producto.nombre}</p>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
-                  <button type="button" class="btn btn-sm btn-outline-secondary">Información</button>
+                  <button type="button" class="btn btn-sm btn-outline-secondary" id="botonInfo" data-id="${producto.id}">Información</button>
                 </div>
                 <small class="text-body-secondary">${producto.precio}€</small>
               </div>
@@ -98,8 +101,6 @@ class VempixcfView {
         `)
         }
     }
-
-
 
     obtenerProductosAleatorios(iterable) {
         const productos = [...iterable];
@@ -113,7 +114,38 @@ class VempixcfView {
     }
 
 
+    //Añadir un producto
+    bindNewProducto(handler) {
+        const newProducto = document.getElementById('newProducto');
+        newProducto.addEventListener('click', (event) => {
+            handler();
+        });
+    }
 
+    //Formulario para menu de producto
+    showMenuProducto() {
+        this.main.replaceChildren();
+        const container = document.createElement('div');
+        container.classList.add('container');
+        container.classList.add('my-3');
+        container.id = 'new-dish';
+        container.insertAdjacentHTML(
+            'beforeend', `
+            <div class="d-flex justify-content-center align-items-center">
+                    <h1 class="display-5">Menu de productos</h1>
+                </div>
+                <div class="d-flex justify-content-center align-items-center">
+                    <ul class="list-group">
+                        <li class="list-group-item"><a href="../php/newProducto.php">Añadir un nuevo producto</a></li>
+                        <li class="list-group-item"><a href="../php/controller.php?operacion=listadoproductos">Listar los productos</a></li>
+                        <li class="list-group-item"><a href="../Vistas/consultaalumno.php">Consulta</a></li>
+                    </ul>
+                </div>
+
+        `,
+        );
+        this.main.append(container);
+    }
 
 
 
@@ -159,7 +191,7 @@ class VempixcfView {
                         <p class="card-text">${producto.nombre}</p>
                         <div class="d-flex justify-content-between align-items-center">
                             <div class="btn-group">
-                                <button type="button" class="btn btn-sm btn-outline-secondary">Información</button>
+                                <button type="button" class="btn btn-sm btn-outline-secondary" id="botonInfo" data-id="${producto.id}">Información</button>
                             </div>
                             <small class="text-body-secondary">${producto.precio}€</small>
                         </div>
@@ -189,6 +221,32 @@ class VempixcfView {
         // Inserta el contenido generado en el main
         this.main.insertAdjacentHTML('afterbegin', productosHTML);
     }
+
+
+
+    //----------------------------------------------------------USER----------------------------------------------------------------
+
+    showAdminMenu() {
+        const menuOption = document.createElement('li');
+        menuOption.classList.add('nav-item');
+        menuOption.classList.add('dropdown');
+        menuOption.insertAdjacentHTML(
+            'afterbegin',
+            '<a class="nav-link dropdown-toggle" href="#" id="adminMenu" role="button" data-bs-toggle="dropdown" aria-expanded="false">Adminitración</a>',
+        );
+        const suboptions = document.createElement('ul');
+        suboptions.classList.add('dropdown-menu');
+        suboptions.insertAdjacentHTML('beforeend', '<li><a id="newProducto" class="dropdown-item" href="#">Productos</a></li>');
+        menuOption.append(suboptions);
+        this.menu.append(menuOption);
+    }
+
+
+
+
+
+
+
 
 }
 

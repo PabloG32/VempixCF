@@ -10,7 +10,7 @@ import {
 
 class Producto {
     //Propiedades
-    #id;
+    #id; //ID del producto
     #nombre; //Nombre del producto
     #descripcion; //Descripcion del producto
     #precio; //Valor del producto
@@ -18,7 +18,7 @@ class Producto {
     #categoria; //Categoria del producto
 
     //Constructor
-    constructor(nombre, descripcion, precio, imagen = "", categoria) {
+    constructor(nombre, descripcion, precio, imagen = "", categoria, id) {
         //Excepciones
         if (!new.target) throw new InvalidAccessConstructorException();
         if (!nombre) throw new EmptyValueException("nombre");
@@ -29,22 +29,18 @@ class Producto {
         if (typeof descripcion != "string") throw new InvalidValueException("descripcion", "String");
         if (typeof precio != "number") throw new InvalidValueException("precio", "Number");
 
-        this.#id;
         this.#nombre = nombre;
         this.#descripcion = descripcion;
         this.#precio = precio;
         this.#imagen = imagen;
         this.#categoria = categoria;
+        this.#id = id;
 
         //Propiedades
         Object.defineProperty(this, 'id', {
             enumerable: true,
             get() {
                 return this.#id;
-            },
-            set(value) {
-                if (!value) throw new EmptyValueException('id');
-                this.#id = value;
             },
         });
         Object.defineProperty(this, 'nombre', {
@@ -271,10 +267,10 @@ let VempixcfManager = (function () {
             }
 
             //Devuelve un objeto producto si está registrado, o crea un nuevo
-            createProducto(nombre, descripcion = "", precio, imagen = " ", categoria) {
+            createProducto(nombre, descripcion = "", precio, imagen = " ", categoria, id) {
                 let position = this.#getProductoPosicion(nombre);
                 if (position != -1) return this.#productos[position];
-                return new Producto(nombre, descripcion, precio, imagen, categoria);
+                return new Producto(nombre, descripcion, precio, imagen, categoria, id);
             }
 
 
