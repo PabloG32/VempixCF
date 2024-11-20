@@ -38,6 +38,7 @@ class VempixcfController {
     onProductos() {
         const productos = this[MODEL].productos;
         this[VIEW].showProductos(productos);
+        this[VIEW].bindShowProductoInfoIndex(this.handlerShowProductoInfo)
     }
 
     onCategorias() {
@@ -82,6 +83,12 @@ class VempixcfController {
         const categoria = this[MODEL].createCategoria(nombre);
         const productos = this[MODEL].getProductosInCategoria(categoria);
         this[VIEW].showProductosInCategoria(productos, nombre);
+        // this[VIEW].bindShowProductoInfoCat(this.handlerShowProductoInfo)
+    }
+
+    handlerShowProductoInfo = (nombre) => {
+        const producto = this[MODEL].createProducto(nombre);
+        this[VIEW].showProductoInfo(producto);
     }
 
     //Creacion de productos

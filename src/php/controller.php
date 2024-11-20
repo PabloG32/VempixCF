@@ -72,28 +72,12 @@ switch ($operacion) {
                 toast.className = "show";
                 setTimeout(function() {
                     toast.className = toast.className.replace("show", "");
-                    window.location.href = '/vempixcf2/VempixCF/src/html/index.html';
+                    window.location.href = '../html/index.html';
                 }, 2000);
             }
             showToast();
         </script>
 <?php
-
-        break;
-
-    case "borrar":
-
-        $dni = "";
-
-        if (isset($_POST['id']))  //Si recibimos un id
-        {
-            $id = $_POST['id'];
-
-            $producto = $daoProd->Borrar($id);
-        }
-
-        include_once '../Vistas/consultaalumno.php';
-
 
         break;
 }
