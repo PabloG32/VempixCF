@@ -4,7 +4,7 @@ require_once './usuario.php';
 
 class DaoUsuarios extends DB
 {
-    public $usuarios = array(); //Array de objetos con el resultado de las consultas
+    public $usuarios = array();
 
     public function __construct($base)
     {

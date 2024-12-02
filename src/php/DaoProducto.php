@@ -27,12 +27,12 @@ class DaoProducto extends DB
             $prod->__set("categoria", $fila['categoria']);
             $prod->__set("imagen", $fila['imagen']);
 
-            $this->productos[] = $prod;   //Insertamos el objeto con los valores de esa fila en el array de objetos
+            $this->productos[] = $prod; //Insertamos el objeto con los valores de esa fila en el array de objetos
 
         }
     }
 
-    public function insertar($producto) //Recibe como parámetro un objeto con los datos del producto
+    public function insertar($producto) //Metodo para insertar un producto que recibe como parámetro un objeto con los datos del producto
     {
 
         $consulta = "insert into productos values(NULL, :nombre, :descripcion, :precio, :categoria, :imagen)";

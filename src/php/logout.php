@@ -2,5 +2,5 @@
 session_start();
 session_unset(); // Borrar todas las variables de sesión
 session_destroy(); // Destruir la sesión
-header("Location: ../html/index.html"); // Redirigir al login
+header("Location: ../html/index.html");
 exit();

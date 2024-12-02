@@ -5,7 +5,6 @@ import {
     InvalidAccessConstructorException,
     EmptyValueException,
     InvalidValueException,
-    AbstractClassException,
 } from "./exceptions.js";
 
 class Producto {
@@ -165,6 +164,31 @@ class ProductoExistsException extends ManagerException {
     }
 }
 
+class CategoryNotExistException extends ManagerException {
+    constructor(categoria, fileName, lineNumber) {
+        super(`Error: The ${categoria.name} doesn't exist in the manager.`, fileName, lineNumber);
+        this.categoria = categoria;
+        this.name = 'CategoryNotExistException';
+    }
+}
+
+class CategoryExistsException extends ManagerException {
+    constructor(categoria, fileName, lineNumber) {
+        super(`Error: The ${categoria.name} already exists in the manager.`, fileName, lineNumber);
+        this.categoria = categoria;
+        this.name = 'CategoryExistsException';
+    }
+}
+
+class ProductExistInCategoryException extends ManagerException {
+    constructor(producto, categoria, fileName, lineNumber) {
+        super(`Error: The ${producto.name} already exist in ${categoria.name}.`, fileName, lineNumber);
+        this.categoria = categoria;
+        this.producto = producto;
+        this.name = 'ProductExistInCategoryException';
+    }
+}
+
 
 let VempixcfManager = (function () {
     let instantiated;
@@ -273,18 +297,7 @@ let VempixcfManager = (function () {
                 return new Producto(nombre, descripcion, precio, imagen, categoria, id);
             }
 
-
-
-
-
-
-
-
-
-
-
             //******************************************************************Productos****************************************** */
-
 
 
             //Añade una nueva categoria
@@ -342,7 +355,7 @@ let VempixcfManager = (function () {
 
                     // Verificar si el producto ya existe en la categoría
                     if (this.#categorias[positionCat].productos.includes(this.#productos[positionProducto])) {
-                        throw new DishExistInCategoryException(producto, categoria);
+                        throw new ProductExistInCategoryException(producto, categoria);
                     }
 
                     // Asigna el producto a la categoría
