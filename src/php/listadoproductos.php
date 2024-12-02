@@ -5,7 +5,16 @@
     <meta charset="UTF-8">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <title>Listado de productos</title>
-    <link rel="stylesheet" href="../css/formLogin.css">
+    <style>
+        body {
+            background-image: url(../img/fondo_web.jpg);
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-attachment: fixed;
+            color: white;
+        }
+    </style>
 </head>
 
 <body>
@@ -64,7 +73,7 @@
             </div>
         </div>
     </div>
-    <button onclick="window.location.href='../html/index.html';" type="button" class="btn btn-primary">Volver al inicio</button>
+    <button onclick="window.location.href='../php/tienda.php';" type="button" class="btn btn-primary">Volver al inicio</button>
 </body>
 
 </html>

@@ -7,20 +7,14 @@ class VempixcfController {
         this[VIEW] = VempixcfView;
 
         this.onLoad();
-
         this.onInit();
 
     }
 
     onInit = () => {
-        this[VIEW].showIdentificationLink();
-        this[VIEW].bindIdentificationLink(this.handleLoginForm);
         this.onCategorias();
-        this[VIEW].showAdminMenu();
         this[VIEW].bindNewProducto(this.handlerNewProducto);
-
     }
-
 
     handleInit = () => {
         this.onInit();
@@ -32,8 +26,6 @@ class VempixcfController {
         this.onCategorias();
 
     }
-
-
 
     onProductos() {
         const productos = this[MODEL].productos;
@@ -66,17 +58,6 @@ class VempixcfController {
             }
 
         });
-    }
-
-
-
-    handleLoginForm = () => {
-        this[VIEW].showLogin();
-        this[VIEW].bindRegisterLink(this.handleRegis);
-    };
-
-    handleRegis = () => {
-        this[VIEW].showRegister()
     }
 
     handlerShowCategoriasProductos = (nombre) => {

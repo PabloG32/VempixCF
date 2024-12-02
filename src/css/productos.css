@@ -8,9 +8,12 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  /* background-image: url(../img/fondo.jpg); */
-  background-color: #e9f1fa;
-  /* background: linear-gradient(130deg, green, blue); */
+  background-image: url(../img/fondo_web.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: fixed;
+  color: white;
 }
 
 .form-registro {

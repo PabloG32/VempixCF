@@ -42,7 +42,7 @@ switch ($operacion) {
                 toast.className = "show";
                 setTimeout(function() {
                     toast.className = toast.className.replace("show", "");
-                    window.location.href = '../html/index.html';
+                    window.location.href = '../php/tienda.php';
                 }, 2000);
             }
             showToast();

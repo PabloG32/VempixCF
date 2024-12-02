@@ -55,7 +55,7 @@
             <input type="file" class="form-file" name="imagen" id="imagen" required>
         </div>
         <input type="submit" value="Crear" class="form-submit" name="crear">
-        <button onclick="window.location.href='../html/index.html';">Volver al inicio</button>
+        <button onclick="window.location.href='../php/tienda.php';">Volver al inicio</button>
     </form>
 </body>
 

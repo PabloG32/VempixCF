@@ -37,7 +37,7 @@ if (isset($_POST['alta'])) {
             toast.className = "show";
             setTimeout(function() {
                 toast.className = toast.className.replace("show", "");
-                window.location.href = '../html/index.html';
+                window.location.href = '../html/index2.html';
             }, 2000);
         }
         showToast();

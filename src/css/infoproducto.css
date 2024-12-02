@@ -11,7 +11,7 @@ body {
 }
 
 img {
-  max-width: 100%;
+  width: 100%;
 }
 
 .container-return {
@@ -22,7 +22,6 @@ img {
 
 .container-title {
   padding: 30px;
-  background-color: #eee;
   margin-bottom: 50px;
   color: #222;
   text-align: center;
@@ -192,62 +191,5 @@ img {
 }
 
 .container-buttons-social a:hover {
-  color: #1bbeb4;
-}
-
-/* Productos relacionados */
-.container-related-products h2 {
-  text-align: center;
-  margin-bottom: 30px;
-}
-
-.card-list-products {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 25px;
-}
-
-.card {
-  cursor: pointer;
-}
-
-.card-img {
-  background: transparent;
-  margin-bottom: 15px;
-}
-
-.card-img img {
-  height: 400px;
-  object-fit: cover;
-  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
-}
-
-.info-card {
-  display: flex;
-  justify-content: space-between;
-}
-
-.text-product {
-  color: #252525;
-  font-weight: 300;
-  line-height: 1.4;
-}
-
-.text-product h3 {
-  color: inherit;
-  font-weight: inherit;
-  font-size: 15px;
-}
-
-.text-product h3:hover {
-  color: #1bbeb4;
-}
-
-.text-product p {
-  color: #666;
-  font-size: 13px;
-}
-
-.text-product p:hover {
   color: #1bbeb4;
 }

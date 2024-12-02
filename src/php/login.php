@@ -1,0 +1,37 @@
+<?php
+session_start();
+require_once('libreriaPDO.php');
+
+if (isset($_POST['inicio'])) {
+    $email = $_POST['email'];
+    $password = sha1($_POST['password']);
+
+    // Validar campos vacíos
+    if (empty($email) || empty($password)) {
+        die("Debe llenar todos los campos.");
+    }
+
+    try {
+        $db = new DB('vempixcf');
+
+        //Buscamos el usuario con dicho email
+        $sql = "SELECT * FROM usuarios WHERE email = '$email'";
+        $usuario = $db->ConsultaDatos($sql);
+
+        if ($usuario && $password == $usuario[0]['password']) {
+            // Almacenar la información del usuario en la sesión
+            $_SESSION['usuario_id'] = $usuario[0]['id'];
+            $_SESSION['nombre'] = $usuario[0]['nombre'];
+            $_SESSION['email'] = $usuario[0]['email'];
+            $_SESSION['direccion'] = $usuario[0]['direccion'];
+            $_SESSION['rol'] = $usuario[0]['rol'];
+
+            header("Location: ../php/tienda.php");
+            exit();
+        } else {
+            echo "Credenciales incorrectas. Inténtelo nuevamente.";
+        }
+    } catch (PDOException $e) {
+        echo "Error de conexión: " . $e->getMessage();
+    }
+}
