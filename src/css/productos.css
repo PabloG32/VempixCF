@@ -8,7 +8,8 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-image: url(../img/fondo.jpg);
+  /* background-image: url(../img/fondo.jpg); */
+  background-color: #e9f1fa;
   /* background: linear-gradient(130deg, green, blue); */
 }
 

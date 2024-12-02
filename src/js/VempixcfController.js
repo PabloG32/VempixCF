@@ -83,7 +83,7 @@ class VempixcfController {
         const categoria = this[MODEL].createCategoria(nombre);
         const productos = this[MODEL].getProductosInCategoria(categoria);
         this[VIEW].showProductosInCategoria(productos, nombre);
-        // this[VIEW].bindShowProductoInfoCat(this.handlerShowProductoInfo)
+        this[VIEW].bindShowProductoInfoCat(this.handlerShowProductoInfo)
     }
 
     handlerShowProductoInfo = (nombre) => {

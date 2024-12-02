@@ -143,6 +143,9 @@ class VempixcfView {
         container.id = 'new-dish';
         container.insertAdjacentHTML(
             'beforeend', `
+                <div class="container-return">
+                    <a href=""><i class="fa-solid fa-arrow-left"></i></a>
+                </div>
             <div class="d-flex justify-content-center align-items-center">
                     <h1 class="display-5">Menu de productos</h1>
                 </div>
@@ -186,6 +189,9 @@ class VempixcfView {
 
         // Creamos el contenedor principal para los productos
         productosHTML += `
+        <div class="container-return">
+            <a href=""><i class="fa-solid fa-arrow-left"></i></a>
+        </div>
         <div class="album py-5" id="prodMain">
             <h2 class="display-5 fw-bold text-center">${nombre}</h2>
             <div class="container">
@@ -233,15 +239,15 @@ class VempixcfView {
     }
 
 
-    // bindShowProductoInfoCat(handler) {
-    //     const botonInfo = document.getElementById("botonInfo");
-    //     for (const botonInfo of this.productosC.children) {
-    //         botonInfo.addEventListener('click', (event) => {
-    //             handler(event.target.dataset.name);
+    bindShowProductoInfoCat(handler) {
+        const botonInfo = document.getElementById("botonInfo");
+        for (const botonInfo of this.main.children) {
+            botonInfo.addEventListener('click', (event) => {
+                handler(event.target.dataset.name);
 
-    //         });
-    //     }
-    // }
+            });
+        }
+    }
 
     //----------------------------------------------------------USER----------------------------------------------------------------
 

@@ -1,34 +1,4 @@
-<style>
-    body {
-        background-image: url(../img/fondo.jpg);
-        /* background: linear-gradient(130deg, green, blue); */
-    }
-
-    /* Estilo para el toast */
-    #toast {
-        visibility: hidden;
-        min-width: 250px;
-        background-color: #4CAF50;
-        color: white;
-        text-align: center;
-        border-radius: 2px;
-        padding: 16px;
-        position: fixed;
-        z-index: 1;
-        left: 50%;
-        top: 50%;
-        transform: translate(-50%, -50%);
-        /* Centrar el toast en la pantalla */
-        font-size: 17px;
-    }
-
-    /* Mostrar el toast cuando se active */
-    #toast.show {
-        visibility: visible;
-        animation: fadeInOut 2s;
-        /* Animación de 2 segundos */
-    }
-</style>
+<link rel="stylesheet" href="../css/toast.css">
 <?php
 
 require_once 'Producto.php';

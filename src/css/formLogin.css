@@ -5,8 +5,9 @@
 }
 
 body {
-  background-image: url(../img/fondo.jpg);
+  /* background-image: url(../img/fondo.jpg); */
   /* background: linear-gradient(130deg, green, blue); */
+  background-color: #e9f1fa;
 }
 
 .form-login {

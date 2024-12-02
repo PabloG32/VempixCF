@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="../css/toast.css">
 <?php
 
 require_once './DaoUsuarios.php';
@@ -27,11 +28,19 @@ if (isset($_POST['alta'])) {
 
     $daoUsu->insertar($usuario);
 
-    // Redirigir a la página de inicio después de crear el usuario
-    echo "
-        <script>
-            alert('Usuario creado correctamente');
-            window.location.href = '/vempixcf2/VempixCF/src/html/index.html';
-        </script>";
-    exit;
+?>
+    <div id="toast">Usuario creado correctamente</div>
+
+    <script>
+        function showToast() {
+            var toast = document.getElementById("toast");
+            toast.className = "show";
+            setTimeout(function() {
+                toast.className = toast.className.replace("show", "");
+                window.location.href = '../html/index.html';
+            }, 2000);
+        }
+        showToast();
+    </script>
+<?php
 }
