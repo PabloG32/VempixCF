@@ -1,0 +1,34 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+}
+
+body {
+  background-image: url(../img/fondo_web.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: fixed;
+  color: white;
+}
+
+h1 {
+  text-align: center;
+  margin-top: 2%;
+  margin-bottom: 2%;
+}
+
+.table-responsive {
+  margin-left: 10%;
+  margin-right: 10%;
+}
+
+.link-light {
+  margin-left: 2%;
+}
+
+.c_vacio {
+  text-align: center;
+}

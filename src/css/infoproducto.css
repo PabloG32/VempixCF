@@ -8,6 +8,7 @@ body {
   font-family: Arial, Helvetica, sans-serif;
   max-width: 1200px;
   margin: 0 auto;
+  color: white;
 }
 
 img {
@@ -23,7 +24,7 @@ img {
 .container-title {
   padding: 30px;
   margin-bottom: 50px;
-  color: #222;
+  color: white;
   text-align: center;
 }
 
@@ -70,7 +71,7 @@ img {
 
 .form-group label {
   width: 100px;
-  color: #222;
+  color: white;
   font-weight: 700;
 }
 
@@ -152,7 +153,7 @@ img {
 .title-additional-information h4,
 .title-reviews h4 {
   font-weight: 300;
-  color: #666;
+  color: white;
   font-size: 14px;
 }
 
@@ -160,7 +161,7 @@ img {
 .text-additional-information,
 .text-reviews {
   font-size: 13px;
-  color: #252525;
+  color: white;
   line-height: 22px;
   margin-top: 25px;
 }
@@ -175,7 +176,7 @@ img {
 
 .container-social span {
   font-weight: 300;
-  color: #252525;
+  color: white;
 }
 
 .container-buttons-social {
@@ -186,7 +187,7 @@ img {
 
 .container-buttons-social a:link,
 .container-buttons-social a:visited {
-  color: #666;
+  color: white;
   font-size: 15px;
 }
 

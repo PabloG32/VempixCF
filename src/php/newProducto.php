@@ -3,6 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
+    <link rel="icon" href="../img/Logo.jpeg" type="image/jpeg">
     <title>Añadir nuevo producto</title>
     <link rel="stylesheet" href="../css/productos.css">
 </head>

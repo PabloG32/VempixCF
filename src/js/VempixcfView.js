@@ -38,7 +38,7 @@ class VempixcfView {
     obtenerProductosAleatorios(iterable) {
         const productos = [...iterable];
         const aleatorios = [];
-        for (let i = 0; i < 3; i++) {
+        for (let i = 0; i < 6; i++) {
             const randomIndex = Math.floor(Math.random() * productos.length);
             aleatorios.push(productos[randomIndex]);
             productos.splice(randomIndex, 1);
@@ -227,7 +227,7 @@ class VempixcfView {
         const containerPrice = document.createElement('div');
         containerPrice.className = 'container-price';
         const spanPrice = document.createElement('span');
-        spanPrice.textContent = `$${producto.precio.toFixed(2)}`;
+        spanPrice.textContent = `${producto.precio.toFixed(2)}€`;
         const iconArrow = document.createElement('i');
         iconArrow.className = 'fa-solid fa-angle-right';
         containerPrice.appendChild(spanPrice);
@@ -281,8 +281,15 @@ class VempixcfView {
         containerInfo.appendChild(containerDetails);
 
         // Botón añadir al carrito
+        const form = document.createElement('form');
+        form.method = 'POST';
+        form.action = '../php/accionesCarrito.php?accion=agregar';
         const containerAddCart = document.createElement('div');
         containerAddCart.className = 'container-add-cart';
+        const id = document.createElement('input');
+        id.type = 'hidden';
+        id.name = 'id';
+        id.value = `${producto.id}`;
         const containerQuantity = document.createElement('div')
         containerQuantity.className = 'container-quantity';
         const quantity = document.createElement('input');
@@ -291,13 +298,18 @@ class VempixcfView {
         quantity.value = '1';
         quantity.min = '1';
         quantity.className = 'input-quantity';
-        const buttonAddToCart = document.createElement('button');
+        quantity.name = 'cantidad';
+        const buttonAddToCart = document.createElement('input');
+        buttonAddToCart.type = 'submit'
         buttonAddToCart.className = 'btn-add-to-cart';
-        buttonAddToCart.innerHTML = '<i class="fa-solid fa-plus"></i> Añadir al carrito';
+        buttonAddToCart.name = 'accion';
+        buttonAddToCart.value = 'Añadir al carrito';
+        containerAddCart.appendChild(id);
         containerQuantity.appendChild(quantity);
         containerAddCart.appendChild(containerQuantity);
         containerAddCart.appendChild(buttonAddToCart);
-        containerInfo.appendChild(containerAddCart);
+        form.appendChild(containerAddCart);
+        containerInfo.appendChild(form);
 
         // Descripción del producto
         const containerDescription = document.createElement('div');
