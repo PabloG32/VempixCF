@@ -9,7 +9,7 @@ body {
 #toast {
   visibility: hidden;
   min-width: 250px;
-  background-color: #4caf50;
+  background-color: #003ffc;
   color: white;
   text-align: center;
   border-radius: 2px;

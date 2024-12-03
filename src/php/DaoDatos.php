@@ -15,12 +15,12 @@ try {
     exit;
 }
 
-// Crear arrays para almacenar los productos y las categorías con productos asignados
+//Arrays para almacenar los productos y las categorías con productos asignados
 $productos = [];
 $categorias = [];
-$productosPorCategoria = []; // Array para agrupar productos por categoría
+$productosPorCategoria = [];
 
-// Recorrer los resultados de productos, convertir las imágenes a base64, y agrupar productos por categoría
+// Recorrer los resultados de productos y agrupar productos por categoría
 foreach ($resultadosProd as $row) {
     if ($row['imagen']) {
         $row['imagen'] = base64_encode($row['imagen']);
@@ -42,13 +42,11 @@ foreach ($resultadosCat as $row) {
     $categorias[] = $row;
 }
 
-// Crear el JSON final con los arrays
 $jsonData = json_encode([
     "productos" => $productos,
     "categorias" => $categorias
 ], JSON_PRETTY_PRINT);
 
-// Guardar el JSON en un archivo
 $file = '../js/productos.json';
 if (file_put_contents($file, $jsonData)) {
     echo "El archivo JSON se ha creado exitosamente: $file";

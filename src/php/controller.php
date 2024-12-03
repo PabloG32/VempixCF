@@ -24,59 +24,93 @@ switch ($operacion) {
         $nombre = $_POST['nombre'];
         $descripcion = $_POST['descripcion'];
         $precio = $_POST['precio'];
-        $categoria = $_POST['categoria'];;
+        $categoria = $_POST['categoria'];
         $imagen = file_get_contents($_FILES['imagen']['tmp_name']);
 
-        $producto = new Producto();
-
-        $producto->__set("nombre", $nombre);
-        $producto->__set("descripcion", $descripcion);
-        $producto->__set("precio", $precio);
-        $producto->__set("categoria", $categoria);
-        $producto->__set("imagen", $imagen);
-
-        $daoProd->insertar($producto);
+        // Comprobar si el producto ya existe en la base de datos
+        if ($daoProd->existeProducto($nombre)) {
 ?>
-        <div id="toast">Producto añadido correctamente</div>
+            <div id="toast">Error: El producto con ese nombre ya existe</div>
+            <script>
+                function showToast() {
+                    var toast = document.getElementById("toast");
+                    toast.className = "show";
+                    setTimeout(function() {
+                        toast.className = toast.className.replace("show", "");
+                        window.location.href = '../php/newProducto.php';
+                    }, 2000);
+                }
+                showToast();
+            </script>
+        <?php
+        } else {
+            $producto = new Producto();
 
-        <script>
-            function showToast() {
-                var toast = document.getElementById("toast");
-                toast.className = "show";
-                setTimeout(function() {
-                    toast.className = toast.className.replace("show", "");
-                    window.location.href = '../php/tienda.php';
-                }, 2000);
-            }
-            showToast();
-        </script>
-    <?php
+            $producto->__set("nombre", $nombre);
+            $producto->__set("descripcion", $descripcion);
+            $producto->__set("precio", $precio);
+            $producto->__set("categoria", $categoria);
+            $producto->__set("imagen", $imagen);
 
+            $daoProd->insertar($producto);
+        ?>
+            <div id="toast">Producto añadido correctamente</div>
+
+            <script>
+                function showToast() {
+                    var toast = document.getElementById("toast");
+                    toast.className = "show";
+                    setTimeout(function() {
+                        toast.className = toast.className.replace("show", "");
+                        window.location.href = '../php/tienda.php';
+                    }, 2000);
+                }
+                showToast();
+            </script>
+        <?php
+        }
         break;
-    case "crearC": //La operación de crear una nueva categoria
+    case "crearC": //La operación de crear una nueva categoría
         $nombre = $_POST['nombre'];
 
-        $categoria = new Categoria();
+        // Comprobar si la categoría ya existe en la base de datos
+        if ($daoCat->existeCategoria($nombre)) {
+        ?>
+            <div id="toast">Error: La categoría con ese nombre ya existe</div>
 
-        $categoria->__set("nombre", $nombre);
+            <script>
+                function showToast() {
+                    var toast = document.getElementById("toast");
+                    toast.className = "show";
+                    setTimeout(function() {
+                        toast.className = toast.className.replace("show", "");
+                        window.location.href = '../php/newCategoria.php';
+                    }, 2000);
+                }
+                showToast();
+            </script>
+        <?php
+        } else {
+            $categoria = new Categoria();
+            $categoria->__set("nombre", $nombre);
 
-        $daoCat->insertar($categoria);
-    ?>
-        <div id="toast">Categoria añadida correctamente</div>
+            $daoCat->insertar($categoria);
+        ?>
+            <div id="toast">Categoría añadida correctamente</div>
 
-        <script>
-            function showToast() {
-                var toast = document.getElementById("toast");
-                toast.className = "show";
-                setTimeout(function() {
-                    toast.className = toast.className.replace("show", "");
-                    window.location.href = '../php/tienda.php';
-                }, 2000);
-            }
-            showToast();
-        </script>
+            <script>
+                function showToast() {
+                    var toast = document.getElementById("toast");
+                    toast.className = "show";
+                    setTimeout(function() {
+                        toast.className = toast.className.replace("show", "");
+                        window.location.href = '../php/tienda.php';
+                    }, 2000);
+                }
+                showToast();
+            </script>
 <?php
-
+        }
         break;
     case "listadocategorias": //Listar las categorias
         $daoCat->listar();

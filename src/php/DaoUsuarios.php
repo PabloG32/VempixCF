@@ -25,4 +25,16 @@ class DaoUsuarios extends DB
 
         $this->ConsultaSimple($consulta, $param);
     }
+
+
+    public function existeUsuario($email) //Metodo para comprobar si existe ese usuario
+    {
+        $consulta = "SELECT COUNT(*) FROM usuarios WHERE email = :email";
+        $param = [':email' => $email];
+
+        $fila = $this->ConsultaDatos($consulta, $param);
+        $count = $fila[0]['COUNT(*)'];
+
+        return $count > 0;
+    }
 }

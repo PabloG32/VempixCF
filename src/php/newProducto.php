@@ -34,7 +34,7 @@
         </div>
         <div class="form-group">
             <label for="categoria" class="form-label">Categoria</label>
-            <select name='categoria'>
+            <select name='categoria' required>
                 <option value=""></option>
                 <?php
                 $param = array();

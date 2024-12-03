@@ -18,7 +18,7 @@
     require_once('DaoProducto.php');
 
     if (!isset($_SESSION['usuario_id'])) {
-        header("Location: ../html/index.html");
+        header("Location: ../index.html");
         exit();
     }
 

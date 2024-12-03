@@ -49,4 +49,15 @@ class DaoCategoria extends DB
         $this->ConsultaSimple($consultaP, $param);
         $this->ConsultaSimple($consultaC, $param);
     }
+
+    public function existeCategoria($nombre) //Metodo para comprobar si existe esa categoria
+    {
+        $consulta = "SELECT COUNT(*) FROM categorias WHERE nombre = :nombre";
+        $param = [':nombre' => $nombre];
+
+        $fila = $this->ConsultaDatos($consulta, $param);
+        $count = $fila[0]['COUNT(*)'];
+
+        return $count > 0;
+    }
 }

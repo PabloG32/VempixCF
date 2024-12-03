@@ -32,7 +32,7 @@ class DaoProducto extends DB
         }
     }
 
-    public function insertar($producto) //Metodo para insertar un producto que recibe como parámetro un objeto con los datos del producto
+    public function insertar($producto) //Metodo para insertar un producto
     {
 
         $consulta = "insert into productos values(NULL, :nombre, :descripcion, :precio, :categoria, :imagen)";
@@ -55,5 +55,16 @@ class DaoProducto extends DB
         $param = array(":id" => $id);
 
         $this->ConsultaSimple($consulta, $param);
+    }
+
+    public function existeProducto($nombre) //Metodo para comprobar si esxiste ese producto
+    {
+        $consulta = "SELECT COUNT(*) FROM productos WHERE nombre = :nombre";
+        $param = [':nombre' => $nombre];
+
+        $fila = $this->ConsultaDatos($consulta, $param);
+        $count = $fila[0]['COUNT(*)'];
+
+        return $count > 0;
     }
 }

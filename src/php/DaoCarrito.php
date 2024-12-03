@@ -12,19 +12,7 @@ class DaoCarrito extends DB
         $this->dbname = $base;
     }
 
-    // public function insertar($carrito)
-    // {
-    //     $consulta = "insert into carrito values(NULL,:idUsuario,:idProducto,:cantidad)";
-
-    //     $param = array();
-    //     $param[":idUsuario"] = $carrito->__get("idUsuario");
-    //     $param[":idProducto"] = $carrito->__get("idProducto");
-    //     $param[":cantidad"] = $carrito->__get("cantidad");
-
-    //     $this->ConsultaSimple($consulta, $param);
-    // }
-
-    // Método para agregar un producto al carrito del usuario con una cantidad específica
+    // Método para agregar un producto al carrito
     public function agregarProducto($usuario_id, $producto_id, $cantidad)
     {
         // Si el producto ya existe en el carrito, incrementa la cantidad

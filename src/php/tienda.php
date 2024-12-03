@@ -17,7 +17,7 @@ if (!isset($_SESSION['usuario_id'])) {
     integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
   <script>
     document.addEventListener("DOMContentLoaded", function() {
-      // Realiza una llamada en segundo plano al archivo PHP que actualiza los datos del json
+      // Actualiza los datos del json
       fetch('../php/DaoDatos.php')
         .then(response => {
           if (!response.ok) {
