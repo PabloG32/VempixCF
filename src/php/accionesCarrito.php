@@ -67,7 +67,7 @@
                     }
                     showToast();
                 </script>
-            <?php
+    <?php
             } catch (Exception $e) {
                 echo "Error al añadir el producto al carrito: " . $e->getMessage();
             }
@@ -131,20 +131,8 @@
             try {
                 $carritoDao = new DaoCarrito("vempixcf");
                 $carritoDao->eliminarProducto($usuario_id, $producto_id);
-            ?>
-                <div id="toast">Producto eliminado del carrito correctamente.</div>
-                <script>
-                    function showToast() {
-                        var toast = document.getElementById("toast");
-                        toast.className = "show";
-                        setTimeout(function() {
-                            toast.className = toast.className.replace("show", "");
-                            window.location.href = 'accionesCarrito.php?accion=ver';
-                        }, 2000);
-                    }
-                    showToast();
-                </script>
-    <?php
+                header("Location: accionesCarrito.php?accion=ver");
+                exit();
             } catch (Exception $e) {
                 echo "Error al eliminar el producto del carrito: " . $e->getMessage();
             }

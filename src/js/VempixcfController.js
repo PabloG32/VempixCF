@@ -14,6 +14,7 @@ class VempixcfController {
     onInit = () => {
         this.onCategorias();
         this[VIEW].bindNewProducto(this.handlerNewProducto);
+        this[VIEW].bindNewCategoria(this.handlerNewCategoria);
     }
 
     handleInit = () => {
@@ -75,6 +76,11 @@ class VempixcfController {
     //Creacion de productos
     handlerNewProducto = () => {
         this[VIEW].showMenuProducto();
+    }
+
+    //Creacion de categorias
+    handlerNewCategoria = () => {
+        this[VIEW].showMenuCategoria();
     }
 }
 export default VempixcfController;

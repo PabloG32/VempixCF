@@ -40,41 +40,38 @@
     <div class="d-flex justify-content-center align-items-center">
         <h1 class="display-5">Listado de productos</h1>
     </div>
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-10">
-                <form action="" method="post" action='<?php echo $_SERVER['PHP_SELF']; ?>' enctype='multipart/form-data'>
-                    <table class="table">
-                        <tr>
-                            <th scope="col">Seleccionar</th>
-                            <th scope="col">Nombre</th>
-                            <th scope="col">descripcion</th>
-                            <th scope="col">Precio</th>
-                            <th scope="col">Categoria</th>
-                            <th scope="col">Imagen</th>
-                        </tr>
-                        <?php
+    <div class="container mt-4">
+        <form action="" method="post" action='<?php echo $_SERVER['PHP_SELF']; ?>' enctype='multipart/form-data'>
+            <table class="table">
+                <tr>
+                    <th class="table-dark">Seleccionar</th>
+                    <th class="table-dark">Nombre</th>
+                    <th class="table-dark">descripcion</th>
+                    <th class="table-dark">Precio</th>
+                    <th class="table-dark">Categoria</th>
+                    <th class="table-dark">Imagen</th>
+                </tr>
+                <?php
 
-                        foreach ($productos as $producto) {
-                            echo ("<tr>");
-                            echo ("<td><input type='checkbox'  name='Selec[" . $producto->__get("id") . "]'></td>");
-                            echo ("<td>" . $producto->__get("nombre") . "</td>");
-                            echo ("<td>" . $producto->__get("descripcion") . "</td>");
-                            echo ("<td>" . $producto->__get("precio") . "</td>");
-                            echo ("<td>" . $producto->__get("categoria") . "</td>");
-                            $imagenBase64 = base64_encode($producto->__get("imagen"));
-                            echo "<td><img src='data:image/jpeg;base64,$imagenBase64' width=100 height=100 ></td>";
-                            echo ("</tr>");
-                        }
-                        ?>
-                    </table>
-                    <input type='submit' class="btn btn-danger" name='Borrar' value='Borrar'>
-                </form>
-
+                foreach ($productos as $producto) {
+                    echo ("<tr class='table-primary'>");
+                    echo ("<td class='table-primary'><input type='checkbox'  name='Selec[" . $producto->__get("id") . "]'></td>");
+                    echo ("<td class='table-primary'>" . $producto->__get("nombre") . "</td>");
+                    echo ("<td class='table-primary'>" . $producto->__get("descripcion") . "</td>");
+                    echo ("<td class='table-primary'>" . $producto->__get("precio") . "</td>");
+                    echo ("<td class='table-primary'>" . $producto->__get("categoria") . "</td>");
+                    $imagenBase64 = base64_encode($producto->__get("imagen"));
+                    echo "<td class='table-primary'><img src='data:image/jpeg;base64,$imagenBase64' width=100 height=100 ></td>";
+                    echo ("</tr class='table-primary'>");
+                }
+                ?>
+            </table>
+            <div class="d-flex flex-column flex-md-row gap-2">
+                <input type='submit' class="btn btn-danger mb-2 mb-md-0" name='Borrar' value='Borrar'>
+                <button onclick="window.location.href='../php/tienda.php';" type="button" class="btn btn-primary">Volver al inicio</button>
             </div>
-        </div>
+        </form>
     </div>
-    <button onclick="window.location.href='../php/tienda.php';" type="button" class="btn btn-primary">Volver al inicio</button>
 </body>
 
 </html>

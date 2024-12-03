@@ -181,6 +181,41 @@ class VempixcfView {
         }
     }
 
+    //Añadir un producto
+    bindNewCategoria(handler) {
+        const newCategoria = document.getElementById('newCategoria');
+        newCategoria.addEventListener('click', (event) => {
+            handler();
+        });
+    }
+
+    //Formulario para menu de producto
+    showMenuCategoria() {
+        this.main.replaceChildren();
+        const container = document.createElement('div');
+        container.classList.add('container');
+        container.classList.add('my-3');
+        container.id = 'new-dish';
+        container.insertAdjacentHTML(
+            'beforeend', `
+                    <div class="container-return">
+                        <a href=""><i class="fa-solid fa-arrow-left"></i></a>
+                    </div>
+                <div class="d-flex justify-content-center align-items-center">
+                        <h1 class="display-5">Menu de productos</h1>
+                    </div>
+                    <div class="d-flex justify-content-center align-items-center">
+                        <ul class="list-group">
+                            <li class="list-group-item"><a href="../php/newCategoria.php">Añadir una nueva categoria</a></li>
+                            <li class="list-group-item"><a href="../php/controller.php?operacion=listadocategorias">Listar las categorias</a></li>
+                        </ul>
+                    </div>
+    
+            `,
+        );
+        this.main.append(container);
+    }
+
     //----------------------------------------------------------Pagina de info----------------------------------------------------------------
 
     //Mostrar info del producto

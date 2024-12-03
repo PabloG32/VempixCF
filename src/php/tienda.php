@@ -63,6 +63,7 @@ if (!isset($_SESSION['usuario_id'])) {
         <a class='nav-link dropdown-toggle link-light' href='#' id='adminMenu' role='button' data-bs-toggle='dropdown' aria-expanded='false'>Adminitración</a>
           <ul class='dropdown-menu'>
           <li><a id='newProducto' class='dropdown-item' href='#'>Productos</a></li>
+          <li><a id='newCategoria' class='dropdown-item' href='#'>Categorias</a></li>
           </ul>
         </li>
         ";
@@ -71,7 +72,7 @@ if (!isset($_SESSION['usuario_id'])) {
       </ul>
       <ul class="nav nav-pills">
         <li class="nav-item">
-          <a id="cerrar" class=" nav-link link-danger text-decoration-none" href="../php/logout.php">Cerrar sesión</a>
+          <a id="cerrar" class="nav-link link-light" href="../php/logout.php"><i class="fa-solid fa-right-from-bracket"></i></a>
         </li>
       </ul>
     </header>
