@@ -19,7 +19,7 @@ body {
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  font-size: 17px;
+  font-size: 30px;
 }
 
 /* Mostrar el toast cuando se active */

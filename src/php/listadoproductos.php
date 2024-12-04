@@ -40,7 +40,7 @@
         <h1 class="display-5">Listado de productos</h1>
     </div>
     <div class="container mt-4">
-        <form action="" method="post" action='<?php echo $_SERVER['PHP_SELF']; ?>' enctype='multipart/form-data'>
+        <form method="post" action='<?php echo $_SERVER['PHP_SELF']; ?>' enctype='multipart/form-data'>
             <table class="table">
                 <tr>
                     <th class="table-dark">Seleccionar</th>

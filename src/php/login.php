@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="../css/toast.css">
 <?php
 session_start();
 require_once('libreriaPDO.php');
@@ -29,7 +30,22 @@ if (isset($_POST['inicio'])) {
             echo "<script>window.location.href='../php/tienda.php';</script>";
             exit();
         } else {
-            echo "Credenciales incorrectas. Inténtelo nuevamente.";
+            // echo "Credenciales incorrectas. Inténtelo nuevamente.";
+            // exit();
+?>
+            <div id="toast">Credenciales incorrectas</div>
+            <script>
+                function showToast() {
+                    var toast = document.getElementById("toast");
+                    toast.className = "show";
+                    setTimeout(function() {
+                        toast.className = toast.className.replace("show", "");
+                        window.location.href = '../index.html';
+                    }, 3000);
+                }
+                showToast();
+            </script>
+<?php
         }
     } catch (PDOException $e) {
         echo "Error de conexión: " . $e->getMessage();
