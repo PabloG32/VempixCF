@@ -18,7 +18,7 @@ if (!isset($_SESSION['usuario_id'])) {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <title>Carrito</title>
     <link rel="stylesheet" href="../css/carrito.css">
-    <link rel="stylesheet" href="../css/toast.css">
+    <link rel="stylesheet" href="../css/toastBien.css">
 </head>
 
 <body>
@@ -56,10 +56,10 @@ if (!isset($_SESSION['usuario_id'])) {
                 $carritoDao = new DaoCarrito("vempixcf");
                 $carritoDao->agregarProducto($usuario_id, $producto_id, $cantidad);
     ?>
-                <div id="toast">Producto añadido al carrito correctamente.</div>
+                <div id="toastBien">Producto añadido al carrito correctamente.</div>
                 <script>
                     function showToast() {
-                        var toast = document.getElementById("toast");
+                        var toast = document.getElementById("toastBien");
                         toast.className = "show";
                         setTimeout(function() {
                             toast.className = toast.className.replace("show", "");

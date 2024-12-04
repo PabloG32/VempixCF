@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="../css/toast.css">
+<link rel="stylesheet" href="../css/toastError.css">
 <?php
 session_start();
 require_once('libreriaPDO.php');
@@ -33,10 +33,10 @@ if (isset($_POST['inicio'])) {
             // echo "Credenciales incorrectas. Inténtelo nuevamente.";
             // exit();
 ?>
-            <div id="toast">Credenciales incorrectas</div>
+            <div id="toastError">Credenciales incorrectas</div>
             <script>
                 function showToast() {
-                    var toast = document.getElementById("toast");
+                    var toast = document.getElementById("toastError");
                     toast.className = "show";
                     setTimeout(function() {
                         toast.className = toast.className.replace("show", "");

@@ -1,4 +1,5 @@
-<link rel="stylesheet" href="../css/toast.css">
+<link rel="stylesheet" href="../css/toastBien.css">
+<link rel="stylesheet" href="../css/toastError.css">
 <?php
 
 require_once 'Producto.php';
@@ -30,10 +31,10 @@ switch ($operacion) {
         // Comprobar si el producto ya existe en la base de datos
         if ($daoProd->existeProducto($nombre)) {
 ?>
-            <div id="toast">Error: El producto con ese nombre ya existe</div>
+            <div id="toastError">El producto con ese nombre ya existe</div>
             <script>
                 function showToast() {
-                    var toast = document.getElementById("toast");
+                    var toast = document.getElementById("toastError");
                     toast.className = "show";
                     setTimeout(function() {
                         toast.className = toast.className.replace("show", "");
@@ -54,11 +55,11 @@ switch ($operacion) {
 
             $daoProd->insertar($producto);
         ?>
-            <div id="toast">Producto añadido correctamente</div>
+            <div id="toastBien">Producto añadido correctamente</div>
 
             <script>
                 function showToast() {
-                    var toast = document.getElementById("toast");
+                    var toast = document.getElementById("toastBien");
                     toast.className = "show";
                     setTimeout(function() {
                         toast.className = toast.className.replace("show", "");
@@ -76,11 +77,11 @@ switch ($operacion) {
         // Comprobar si la categoría ya existe en la base de datos
         if ($daoCat->existeCategoria($nombre)) {
         ?>
-            <div id="toast">Error: La categoría con ese nombre ya existe</div>
+            <div id="toastError">La categoría con ese nombre ya existe</div>
 
             <script>
                 function showToast() {
-                    var toast = document.getElementById("toast");
+                    var toast = document.getElementById("toastError");
                     toast.className = "show";
                     setTimeout(function() {
                         toast.className = toast.className.replace("show", "");
@@ -96,11 +97,11 @@ switch ($operacion) {
 
             $daoCat->insertar($categoria);
         ?>
-            <div id="toast">Categoría añadida correctamente</div>
+            <div id="toastBien">Categoría añadida correctamente</div>
 
             <script>
                 function showToast() {
-                    var toast = document.getElementById("toast");
+                    var toast = document.getElementById("toastBien");
                     toast.className = "show";
                     setTimeout(function() {
                         toast.className = toast.className.replace("show", "");

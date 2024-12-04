@@ -1,0 +1,30 @@
+body {
+  background-image: url(../img/fondo_web.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+#toastBien {
+  visibility: hidden;
+  min-width: 250px;
+  background-color: #00ff66;
+  color: white;
+  text-align: center;
+  border-radius: 2px;
+  padding: 16px;
+  position: fixed;
+  z-index: 1;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 30px;
+}
+
+/* Mostrar el toast cuando se active */
+#toastBien.show {
+  visibility: visible;
+  animation: fadeInOut 2s;
+  /* Animación de 2 segundos */
+}

@@ -1,4 +1,5 @@
-<link rel="stylesheet" href="../css/toast.css">
+<link rel="stylesheet" href="../css/toastBien.css">
+<link rel="stylesheet" href="../css/toastError.css">
 <?php
 
 require_once './DaoUsuarios.php';
@@ -17,10 +18,10 @@ if (isset($_POST['alta'])) {
     // Comprobar si el usuario ya existe en la base de datos
     if ($daoUsu->existeUsuario($email)) {
 ?>
-        <div id="toast">El usuario ya existe</div>
+        <div id="toastError">El usuario ya existe</div>
         <script>
             function showToast() {
-                var toast = document.getElementById("toast");
+                var toast = document.getElementById("toastError");
                 toast.className = "show";
                 setTimeout(function() {
                     toast.className = toast.className.replace("show", "");
@@ -40,10 +41,10 @@ if (isset($_POST['alta'])) {
 
         $daoUsu->insertar($usuario);
     ?>
-        <div id="toast">Usuario creado correctamente</div>
+        <div id="toastBien">Usuario creado correctamente</div>
         <script>
             function showToast() {
-                var toast = document.getElementById("toast");
+                var toast = document.getElementById("toastBien");
                 toast.className = "show";
                 setTimeout(function() {
                     toast.className = toast.className.replace("show", "");

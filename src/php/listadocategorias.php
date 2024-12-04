@@ -39,7 +39,7 @@
         <h1 class="display-5">Listado de categorias</h1>
     </div>
     <div class="container mt-4">
-        <form method="post" action='<?php echo $_SERVER['PHP_SELF']; ?>'>
+        <form method="post" action=''>
             <table class="table">
                 <tr>
                     <th class='table-dark'>Seleccionar</th>
