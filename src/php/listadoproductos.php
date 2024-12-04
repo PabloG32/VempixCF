@@ -24,8 +24,7 @@
     $base = "vempixcf";
     $daoProd = new DaoProducto($base);
 
-    if (isset($_POST['Borrar']) && isset($_POST['Selec']))  //Si hemos seleccionado algun producto y pulsado borrar
-    {
+    if (isset($_POST['Borrar']) && isset($_POST['Selec'])) {
         $selec = $_POST['Selec']; //Recogemos los ids del los checkboxes seleccionados
 
         foreach ($selec as $clave => $valor) //Para cada uno de los productos seleccinados
@@ -33,7 +32,7 @@
             $daoProd->Borrar($clave);  //Borramos la seleccion
 
         }
-        header("Location: controller.php?operacion=listadoproductos");
+        echo "<script>window.location.href='./controller.php?operacion=listadoproductos';</script>";
         exit();
     }
     ?>

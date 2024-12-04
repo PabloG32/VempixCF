@@ -1,3 +1,13 @@
+<?php
+session_start();
+require_once('DaoCarrito.php');
+require_once('DaoProducto.php');
+
+if (!isset($_SESSION['usuario_id'])) {
+    header("Location: ../index.html");
+    exit();
+}
+?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -13,15 +23,6 @@
 
 <body>
     <?php
-    session_start();
-    require_once('DaoCarrito.php');
-    require_once('DaoProducto.php');
-
-    if (!isset($_SESSION['usuario_id'])) {
-        header("Location: ../index.html");
-        exit();
-    }
-
     //Vemos las diferentes acciones
     $accion = isset($_GET['accion']) ? $_GET['accion'] : 'ver';
 

@@ -2,5 +2,5 @@
 session_start();
 session_unset();
 session_destroy();
-header("Location: ../index.html");
+echo "<script>window.location.href='../index.html';</script>";
 exit();

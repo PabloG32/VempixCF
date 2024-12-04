@@ -31,7 +31,7 @@
         foreach ($selec as $clave => $valor) {
             $daoCat->Borrar($clave);
         }
-        header("Location: controller.php?operacion=listadocategorias");
+        echo "<script>window.location.href='./controller.php?operacion=listadocategorias';</script>";
         exit();
     }
     ?>

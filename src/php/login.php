@@ -26,7 +26,7 @@ if (isset($_POST['inicio'])) {
             $_SESSION['direccion'] = $usuario[0]['direccion'];
             $_SESSION['rol'] = $usuario[0]['rol'];
 
-            header("Location: ../php/tienda.php");
+            echo "<script>window.location.href='../php/tienda.php';</script>";
             exit();
         } else {
             echo "Credenciales incorrectas. Inténtelo nuevamente.";
