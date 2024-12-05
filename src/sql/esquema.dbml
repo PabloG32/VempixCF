@@ -1,0 +1,29 @@
+Table carrito {
+  id int(11) [pk, increment]
+  idUsuario int(11) [ref: > usuario.id, unique]
+  idProducto int(11) [ref: > productos.id, unique]
+  cantidad int(11)
+}
+
+Table categorias {
+  id int(11) [pk, increment]
+  nombre varchar(50)
+}
+
+Table productos {
+  id int(11) [pk, increment]
+  nombre varchar(50)
+  descripcion text(100)
+  precio double
+  categoria int(11) [ref: > categorias.id]
+  imagen mediumblob
+}
+
+Table usuario {
+  id int(11) [pk, increment]
+  nombre varchar(100)
+  email varchar(100)
+  password varchar(50)
+  direccion text(50)
+  rol varchar(1)
+}

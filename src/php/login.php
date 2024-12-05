@@ -1,7 +1,7 @@
-<link rel="stylesheet" href="../css/toastError.css">
 <?php
 session_start();
 require_once('libreriaPDO.php');
+echo "<link rel='stylesheet'href='../css/toastError.css'>";
 
 if (isset($_POST['inicio'])) {
     $email = $_POST['email'];
