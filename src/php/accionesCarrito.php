@@ -7,6 +7,7 @@ if (!isset($_SESSION['usuario_id'])) {
     header("Location: ../index.html");
     exit();
 }
+$base = "vempixcf";
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -43,9 +44,10 @@ if (!isset($_SESSION['usuario_id'])) {
 
     function agregarProductoAlCarrito()
     {
+        global $base;
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $producto_id = $_POST['id'];
-            $cantidad = isset($_POST['cantidad']) ? intval($_POST['cantidad']) : 1;
+            $cantidad = $_POST['cantidad'];
             $usuario_id = $_SESSION['usuario_id'];
 
             if ($cantidad < 1) {
@@ -53,7 +55,7 @@ if (!isset($_SESSION['usuario_id'])) {
             }
 
             try {
-                $DaoCarrito = new DaoCarrito("vempixcf");
+                $DaoCarrito = new DaoCarrito($base);
                 $DaoCarrito->agregarProducto($usuario_id, $producto_id, $cantidad);
     ?>
                 <div class='alert alert-success mt-5' role='alert'>Producto añadido al carrito correctamente.</div>
@@ -73,10 +75,11 @@ if (!isset($_SESSION['usuario_id'])) {
 
     function verCarrito()
     {
+        global $base;
         $usuario_id = $_SESSION['usuario_id'];
 
         try {
-            $DaoCarrito = new DaoCarrito("vempixcf");
+            $DaoCarrito = new DaoCarrito($base);
             $productos = $DaoCarrito->obtenerProductosEnCarrito($usuario_id);
             $total = 0;
             echo "<h1>Carrito de Compras</h1>";
@@ -119,12 +122,13 @@ if (!isset($_SESSION['usuario_id'])) {
 
     function eliminarProductoDelCarrito()
     {
+        global $base;
         if ($_SERVER['REQUEST_METHOD'] == 'GET') {
             $producto_id = $_GET['producto_id'];
             $usuario_id = $_SESSION['usuario_id'];
 
             try {
-                $DaoCarrito = new DaoCarrito("vempixcf");
+                $DaoCarrito = new DaoCarrito($base);
                 $DaoCarrito->eliminarProducto($usuario_id, $producto_id);
                 header("Location: accionesCarrito.php?accion=ver");
                 exit();

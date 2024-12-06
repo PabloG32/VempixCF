@@ -13,8 +13,11 @@ class VempixcfController {
 
     onInit = () => {
         this.onCategorias();
-        this[VIEW].bindNewProducto(this.handlerNewProducto);
-        this[VIEW].bindNewCategoria(this.handlerNewCategoria);
+        const adminMenu = document.getElementById('adminMenu');
+        if (adminMenu && adminMenu.style.display !== 'none') {
+            this[VIEW].bindNewProducto(this.handlerNewProducto);
+            this[VIEW].bindNewCategoria(this.handlerNewCategoria);
+        }
     }
 
     handleInit = () => {
