@@ -130,7 +130,7 @@ $base = "vempixcf";
             try {
                 $DaoCarrito = new DaoCarrito($base);
                 $DaoCarrito->eliminarProducto($usuario_id, $producto_id);
-                header("Location: accionesCarrito.php?accion=ver");
+                echo "<script>window.location.href='./accionesCarrito.php?accion=ver';</script>";
                 exit();
             } catch (Exception $e) {
                 echo "Error al eliminar el producto del carrito: " . $e->getMessage();

@@ -8,12 +8,12 @@ if (!isset($_SESSION['usuario_id'])) {
     header("Location: ../index.html");
     exit();
 }
-
+$base = "vempixcf";
 $usuario_id = $_SESSION['usuario_id'];
-$DaoCarrito = new DaoCarrito("vempixcf");
+$DaoCarrito = new DaoCarrito($base);
 $productos = $DaoCarrito->obtenerProductosEnCarrito($usuario_id);
 $total = 0;
-$db = new DB("vempixcf");
+$db = new DB($base);
 $country = "";
 
 if (isset($_POST['country'])) {
