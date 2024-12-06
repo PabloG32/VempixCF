@@ -27,3 +27,8 @@ Table usuario {
   direccion text(50)
   rol varchar(1)
 }
+
+Table paises{
+  Codigo varchar(2) [pk]
+  Pais varchar(100)
+}

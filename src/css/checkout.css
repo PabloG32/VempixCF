@@ -1,0 +1,18 @@
+.container {
+  max-width: 960px;
+}
+
+body {
+  margin-top: 5%;
+  margin-bottom: 5%;
+  font-family: Arial, Helvetica, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: url(../img/fondo_web.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: fixed;
+  color: white;
+}

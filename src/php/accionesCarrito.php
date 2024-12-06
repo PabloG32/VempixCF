@@ -53,20 +53,14 @@ if (!isset($_SESSION['usuario_id'])) {
             }
 
             try {
-                $carritoDao = new DaoCarrito("vempixcf");
-                $carritoDao->agregarProducto($usuario_id, $producto_id, $cantidad);
+                $DaoCarrito = new DaoCarrito("vempixcf");
+                $DaoCarrito->agregarProducto($usuario_id, $producto_id, $cantidad);
     ?>
-                <div id="toastBien">Producto añadido al carrito correctamente.</div>
+                <div class='alert alert-success mt-5' role='alert'>Producto añadido al carrito correctamente.</div>
                 <script>
-                    function showToast() {
-                        var toast = document.getElementById("toastBien");
-                        toast.className = "show";
-                        setTimeout(function() {
-                            toast.className = toast.className.replace("show", "");
-                            window.location.href = '../php/tienda.php';
-                        }, 2000);
-                    }
-                    showToast();
+                    setTimeout(function() {
+                        window.location.href = './tienda.php';
+                    }, 2000);
                 </script>
     <?php
             } catch (Exception $e) {
@@ -82,8 +76,8 @@ if (!isset($_SESSION['usuario_id'])) {
         $usuario_id = $_SESSION['usuario_id'];
 
         try {
-            $carritoDao = new DaoCarrito("vempixcf");
-            $productos = $carritoDao->obtenerProductosEnCarrito($usuario_id);
+            $DaoCarrito = new DaoCarrito("vempixcf");
+            $productos = $DaoCarrito->obtenerProductosEnCarrito($usuario_id);
             $total = 0;
             echo "<h1>Carrito de Compras</h1>";
             if (count($productos) > 0) {
@@ -109,7 +103,7 @@ if (!isset($_SESSION['usuario_id'])) {
                     <td class='table-dark'>
                         <p class='h3' id='total'>" . $total . "€</p>
                     </td>
-                    <td class='table-dark'><button class='btn btn-primary'>Pagar</button></td>
+                    <td class='table-dark'><a href='./pagar.php' class='btn btn-primary'>Pagar</a></td>
                     ";
                 echo "</tbody>";
                 echo "</table>";
@@ -130,8 +124,8 @@ if (!isset($_SESSION['usuario_id'])) {
             $usuario_id = $_SESSION['usuario_id'];
 
             try {
-                $carritoDao = new DaoCarrito("vempixcf");
-                $carritoDao->eliminarProducto($usuario_id, $producto_id);
+                $DaoCarrito = new DaoCarrito("vempixcf");
+                $DaoCarrito->eliminarProducto($usuario_id, $producto_id);
                 header("Location: accionesCarrito.php?accion=ver");
                 exit();
             } catch (Exception $e) {

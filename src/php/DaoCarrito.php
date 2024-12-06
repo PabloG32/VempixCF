@@ -34,7 +34,7 @@ class DaoCarrito extends DB
     // Método para obtener los productos que están en el carrito del usuario
     public function obtenerProductosEnCarrito($usuario_id)
     {
-        $sql = "SELECT p.id, p.nombre, p.precio, c.cantidad 
+        $sql = "SELECT p.id, p.nombre, p.precio, c.cantidad, p.descripcion 
                 FROM productos p 
                 JOIN carrito c ON p.id = c.idProducto
                 WHERE c.idUsuario = :usuario_id";
