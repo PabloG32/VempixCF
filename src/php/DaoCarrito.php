@@ -61,7 +61,7 @@ class DaoCarrito extends DB
         }
     }
 
-    // Método para vaciar completamente el carrito del usuario
+    // Método para vaciar el carrito del usuario
     public function vaciarCarrito($usuario_id)
     {
         $sql = "DELETE FROM carrito WHERE idUsuario = :usuario_id";

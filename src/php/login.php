@@ -30,8 +30,6 @@ if (isset($_POST['inicio'])) {
             echo "<script>window.location.href='../php/tienda.php';</script>";
             exit();
         } else {
-            // echo "Credenciales incorrectas. Inténtelo nuevamente.";
-            // exit();
 ?>
             <div id="toastError">Credenciales incorrectas</div>
             <script>
