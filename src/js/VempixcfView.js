@@ -480,7 +480,7 @@ class VempixcfView {
                     <div class="d-flex justify-content-center align-items-center">
                         <ul class="list-group">
                             <li class="list-group-item"><a href="../php/newNoticia.php">Añadir una nueva noticia</a></li>
-                            <li class="list-group-item"><a href="../php/controller.php?operacion=listadocategorias">Listar las categorias</a></li>
+                            <li class="list-group-item"><a href="../php/controller.php?operacion=listadonoticias">Listar las noticias</a></li>
                         </ul>
                     </div>
 

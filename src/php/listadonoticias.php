@@ -20,38 +20,44 @@
 
 <body>
     <?php
-    require_once 'DaoCategoria.php';
+    require_once 'DaoNoticia.php';
     $base = "vempixcf";
-    $daoCat = new DaoCategoria($base);
+    $daoNot = new DaoNoticia($base);
 
-    if (isset($_POST['Borrar']) && isset($_POST['Selec']))  //Si hemos seleccionado alguna categoria y pulsado borrar
-    {
-        $selec = $_POST['Selec']; //Recogemos los ids del los checkboxes seleccionados
+    if (isset($_POST['Borrar']) && isset($_POST['Selec'])) {
+        $selec = $_POST['Selec'];
 
         foreach ($selec as $clave => $valor) {
-            $daoCat->Borrar($clave);
+            $daoNot->Borrar($clave);
         }
-        echo "<script>window.location.href='./controller.php?operacion=listadocategorias';</script>";
+        echo "<script>window.location.href='./controller.php?operacion=listadonoticias';</script>";
         exit();
     }
     ?>
     <div class="d-flex justify-content-center align-items-center">
-        <h1 class="display-5">Listado de categorias</h1>
+        <h1 class="display-5">Listado de noticias</h1>
     </div>
     <div class="container mt-4">
-        <form method="post" action=''>
+        <form method="post" action='' enctype='multipart/form-data'>
             <table class="table">
                 <tr>
-                    <th class='table-dark'>Seleccionar</th>
-                    <th class='table-dark'>Nombre</th>
+                    <th class="table-dark">Seleccionar</th>
+                    <th class="table-dark">Titulo</th>
+                    <th class="table-dark">Contenido</th>
+                    <th class="table-dark">Fecha</th>
+                    <th class="table-dark">Imagen</th>
                 </tr>
                 <?php
 
-                foreach ($categorias as $categoria) {
+                foreach ($noticias as $noticia) {
                     echo ("<tr class='table-primary'>");
-                    echo ("<td class='table-primary'><input type='checkbox'  name='Selec[" . $categoria->__get("id") . "]'></td>");
-                    echo ("<td class='table-primary'>" . $categoria->__get("nombre") . "</td>");
-                    echo ("</tr>");
+                    echo ("<td class='table-primary'><input type='checkbox'  name='Selec[" . $noticia->__get("id") . "]'></td>");
+                    echo ("<td class='table-primary'>" . $noticia->__get("titulo") . "</td>");
+                    echo ("<td class='table-primary'>" . $noticia->__get("contenido") . "</td>");
+                    echo ("<td class='table-primary'>" . $noticia->__get("fecha") . "</td>");
+                    $imagenBase64 = base64_encode($noticia->__get("imagen"));
+                    echo "<td class='table-primary'><img src='data:image/jpeg;base64,$imagenBase64' width=100 height=100 ></td>";
+                    echo ("</tr class='table-primary'>");
                 }
                 ?>
             </table>
@@ -61,7 +67,6 @@
             </div>
         </form>
     </div>
-
 </body>
 
 </html>

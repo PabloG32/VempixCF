@@ -131,4 +131,10 @@ switch ($operacion) {
 <?php
         }
         break;
+    case "listadonoticias":
+        $daoNot->listar();
+        $noticias = $daoNot->noticias;
+        include_once 'listadonoticias.php';
+
+        break;
 }
