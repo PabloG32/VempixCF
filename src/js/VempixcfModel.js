@@ -136,6 +136,85 @@ class Categoria {
     }
 }
 
+class Noticia {
+    //Propiedades
+    #titulo; //titulo de la noticia.
+    #contenido; //contenido de la noticia
+    #fecha; //fecha de la notica
+    #imagen; //imagen de la noticia
+    #id; // id de la notica
+
+    //Constructor
+    constructor(titulo, contenido, fecha, imagen, id) {
+        //Excepciones
+        if (!new.target) throw new InvalidAccessConstructorException();
+        if (!titulo) throw new EmptyValueException("titulo");
+        if (!contenido) throw new EmptyValueException("contenido");
+        if (!fecha) throw new EmptyValueException("fecha");
+        if (typeof titulo != "string") throw new InvalidValueException("titulo", "String");
+        if (typeof contenido != "string") throw new InvalidValueException("contenido", "String");
+        if (typeof fecha != "string") throw new InvalidValueException("fecha", "String");
+
+        this.#titulo = titulo;
+        this.#contenido = contenido;
+        this.#fecha = fecha;
+        this.#imagen = imagen;
+        this.#id = id;
+
+        Object.defineProperty(this, 'id', {
+            enumerable: true,
+            get() {
+                return this.#id;
+            },
+        });
+
+        Object.defineProperty(this, 'titulo', {
+            enumerable: true,
+            get() {
+                return this.#titulo;
+            },
+            set(value) {
+                if (!value) throw new EmptyValueException('titulo');
+                this.#titulo = value;
+            },
+        });
+
+        Object.defineProperty(this, 'contenido', {
+            enumerable: true,
+            get() {
+                return this.#contenido;
+            },
+            set(value) {
+                if (!value) throw new EmptyValueException('contenido');
+                this.#contenido = value;
+            },
+        });
+
+        Object.defineProperty(this, 'fecha', {
+            enumerable: true,
+            get() {
+                return this.#fecha;
+            },
+            set(value) {
+                if (!value) throw new EmptyValueException('fecha');
+                this.#fecha = value;
+            },
+        });
+
+        Object.defineProperty(this, 'imagen', {
+            enumerable: true,
+            get() {
+                return this.#imagen;
+            },
+            set(value) {
+                if (!value) throw new EmptyValueException('imagen');
+                this.#imagen = value;
+            },
+        });
+
+    }
+}
+
 
 
 
@@ -161,6 +240,14 @@ class ProductoExistsException extends ManagerException {
         super(`Error: The ${producto.name} already exists in the manager.`, fileName, lineNumber);
         this.producto = producto;
         this.name = 'ProductoExistsException';
+    }
+}
+
+class NoticiaExistsException extends ManagerException {
+    constructor(noticia, fileName, lineNumber) {
+        super(`Error: The ${noticia.titulo} already exists in the manager.`, fileName, lineNumber);
+        this.noticia = noticia;
+        this.name = 'NoticiaExistsException';
     }
 }
 
@@ -197,6 +284,7 @@ let VempixcfManager = (function () {
         class VempixcfManager {
             #productos = []; //Array de productos.
             #categorias = []; //Array de categorias.
+            #noticias = []; //Array de noticias.
 
             constructor() {
                 Object.defineProperty(this, 'productos', {
@@ -228,6 +316,20 @@ let VempixcfManager = (function () {
                     },
                 });
 
+                Object.defineProperty(this, 'noticias', {
+                    enumerable: true,
+                    get() {
+                        const array = this.#noticias;
+                        return {
+                            *[Symbol.iterator]() {
+                                for (const noticia of array) {
+                                    yield noticia;
+                                }
+                            },
+                        };
+                    },
+                });
+
             }
 
             //Dado un producto, devuelve su posición.
@@ -247,6 +349,15 @@ let VempixcfManager = (function () {
                 }
 
                 return this.#categorias.findIndex(compareElements);
+            }
+
+            //Dada una notica, devuelve su posición.
+            #getNoticiaPosicion(titulo) {
+                function compareElements(element) {
+                    return (element.titulo === titulo);
+                }
+
+                return this.#noticias.findIndex(compareElements);
             }
 
 
@@ -366,6 +477,32 @@ let VempixcfManager = (function () {
 
 
 
+            //******************************************************************Noticas****************************************** */
+            //Añade una nueva noticia
+            addNoticia(...noticias) {
+                for (let noticia of noticias) {
+                    if (!(noticia instanceof Noticia)) {
+                        throw new ObjecManagerException('noticia', 'Noticia');
+                    }
+                    // Obtiene la posición del producto en el manager de objetos
+                    let position = this.#getNoticiaPosicion(noticia.titulo);
+                    if (position === -1) {
+                        this.#noticias.push(noticia);
+                    } else {
+                        throw new NoticiaExistsException(noticia);
+                    }
+                }
+                return this;
+            }
+
+            createNoticia(titulo, contenido, fecha, imagen, id) {
+                let position = this.#getNoticiaPosicion(titulo);
+                if (position != -1) return this.#noticias[position];
+                return new Noticia(titulo, contenido, fecha, imagen, id);
+            }
+
+
+
 
 
 
@@ -386,7 +523,7 @@ let VempixcfManager = (function () {
 })();
 
 export {
-    Producto, Categoria
+    Producto, Categoria, Noticia
 };
 
 export default VempixcfManager;

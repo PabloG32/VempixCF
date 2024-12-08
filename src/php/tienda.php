@@ -47,6 +47,9 @@ if (!isset($_SESSION['usuario_id'])) {
       </a>
 
       <ul class="nav nav-pills" id="nav-menu">
+        <li class="nav-item">
+          <a class=" nav-link link-light text-decoration-none" href='#' id='showNoticias' role='button' aria-expanded='false'>Noticias</a>
+        </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle link-light" href="#" data-bs-toggle="dropdown" aria-expanded="false">Categorias</a>
           <ul class="dropdown-menu" id="cat-menu">

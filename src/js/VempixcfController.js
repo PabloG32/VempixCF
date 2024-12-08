@@ -20,14 +20,11 @@ class VempixcfController {
         }
     }
 
-    handleInit = () => {
-        this.onInit();
-    }
-
     onLoad = async () => {
         await this.createData();
         this.onProductos();
         this.onCategorias();
+        this.onNoticias();
 
     }
 
@@ -41,6 +38,10 @@ class VempixcfController {
         const categorias = this[MODEL].categorias;
         this[VIEW].showCategoriasMenu(categorias);
         this[VIEW].bindCategoriasMenu(this.handlerShowCategoriasProductos);
+    }
+
+    onNoticias() {
+        this[VIEW].bindNoticias(this.handlerNoticia);
     }
 
 
@@ -59,6 +60,10 @@ class VempixcfController {
                         this[MODEL].assignCategoriaToProducto(storedCategoria, sotredProductos);
                     }
                 }
+            }
+
+            for (const noticia of data.noticias) {
+                this[MODEL].addNoticia(this[MODEL].createNoticia(noticia.titulo, noticia.contenido, noticia.fecha, noticia.imagen, noticia.id));
             }
 
         });
@@ -84,6 +89,11 @@ class VempixcfController {
     //Creacion de categorias
     handlerNewCategoria = () => {
         this[VIEW].showMenuCategoria();
+    }
+
+    handlerNoticia = () => {
+        const noticias = this[MODEL].noticias;
+        this[VIEW].showNoticias(noticias);
     }
 }
 export default VempixcfController;

@@ -3,22 +3,23 @@ include 'libreriaPDO.php';
 
 $db = new DB('vempixcf');
 
-// Las consultas SQL para obtener los datos de productos y categorías
 $sqlProd = "SELECT id, nombre, precio, descripcion, categoria, imagen FROM productos";
 $sqlCat = "SELECT id, nombre FROM categorias";
+$sqlNot = "SELECT id, titulo, contenido, fecha, imagen FROM noticias";
 
 try {
     $resultadosProd = $db->ConsultaDatos($sqlProd);
     $resultadosCat = $db->ConsultaDatos($sqlCat);
+    $resultadosNot = $db->ConsultaDatos($sqlNot);
 } catch (Exception $e) {
     echo json_encode(["error" => $e->getMessage()]);
     exit;
 }
 
-//Arrays para almacenar los productos y las categorías con productos asignados
 $productos = [];
 $categorias = [];
 $productosPorCategoria = [];
+$noticias = [];
 
 // Recorrer los resultados de productos y agrupar productos por categoría
 foreach ($resultadosProd as $row) {
@@ -42,9 +43,18 @@ foreach ($resultadosCat as $row) {
     $categorias[] = $row;
 }
 
+// Procesar los resultados de noticias
+foreach ($resultadosNot as $row) {
+    if ($row['imagen']) {
+        $row['imagen'] = base64_encode($row['imagen']);
+    }
+    $noticias[] = $row;
+}
+
 $jsonData = json_encode([
     "productos" => $productos,
-    "categorias" => $categorias
+    "categorias" => $categorias,
+    "noticias" => $noticias
 ], JSON_PRETTY_PRINT);
 
 $file = '../js/productos.json';

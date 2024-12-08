@@ -381,6 +381,76 @@ class VempixcfView {
     }
 
 
+    //----------------------------------------------------------Noticias----------------------------------------------------------------
+
+    //Ver noticias
+    bindNoticias(handler) {
+        const showNoticias = document.getElementById('showNoticias');
+        showNoticias.addEventListener('click', (event) => {
+            handler();
+        });
+    }
+
+    //Mostrar noticias
+    showNoticias(noticias) {
+        const main = document.querySelector('main');
+        main.replaceChildren();
+
+        // Crear el contenedor principal
+        const mainNoticias = document.createElement('div');
+        mainNoticias.className = 'container px-4 py-5';
+        mainNoticias.id = 'custom-cards';
+        main.appendChild(mainNoticias);
+
+        const tituloPag = document.createElement('h2');
+        tituloPag.className = 'pb-2 border-bottom';
+        tituloPag.textContent = 'Noticias';
+        mainNoticias.appendChild(tituloPag);
+
+        const divTarjetas = document.createElement('div');
+        divTarjetas.className = 'row row-cols-1 row-cols-lg-3 align-items-stretch g-4 py-5';
+        for (const noticia of noticias) {
+            const containerNot = document.createElement('div');
+            containerNot.className = 'col';
+            containerNot.innerHTML = `
+                <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg" style="background-color: black;">
+                    <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
+                        <h3 class="mb-4 lh-1 fw-bold" data-bs-toggle="modal" data-bs-target="#${noticia.id}">${noticia.titulo}</h3>
+                        <ul class="d-flex list-unstyled mt-auto">
+                            <li class="d-flex align-items-center me-3">
+                                <small>CrossFit</small>
+                            </li>
+                            <li class="d-flex justify-content-end align-items-center">
+                                <small class="me-2">${noticia.fecha}</small>
+                                <i class="fa-solid fa-calendar-days"></i>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="modal fade" id="${noticia.id}" tabindex="-1" aria-labelledby="noticiaModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="noticiaModalLabel">${noticia.titulo}</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                            <img src="data:image/jpg;base64,${noticia.imagen}" alt="${noticia.titulo}" class="img-fluid rounded mb-3">
+                                <p>${noticia.contenido}</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `
+            divTarjetas.appendChild(containerNot);
+        }
+
+        mainNoticias.appendChild(divTarjetas);
+    }
 
 }
 
