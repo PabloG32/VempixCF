@@ -72,7 +72,7 @@ class VempixcfView {
         const container = document.createElement('div');
         container.classList.add('container');
         container.classList.add('my-3');
-        container.id = 'new-dish';
+        container.id = 'new-prod';
         container.insertAdjacentHTML(
             'beforeend', `
                 <div class="container-return">
@@ -195,7 +195,7 @@ class VempixcfView {
         const container = document.createElement('div');
         container.classList.add('container');
         container.classList.add('my-3');
-        container.id = 'new-dish';
+        container.id = 'new-cat';
         container.insertAdjacentHTML(
             'beforeend', `
                     <div class="container-return">
@@ -451,6 +451,42 @@ class VempixcfView {
         }
 
         mainNoticias.appendChild(divTarjetas);
+    }
+
+
+    //Añadir un producto
+    bindNewNoticia(handler) {
+        const newNoticia = document.getElementById('newNoticia');
+        newNoticia.addEventListener('click', (event) => {
+            handler();
+        });
+    }
+
+    //Formulario para menu de noticias
+    showMenuNoticia() {
+        this.main.replaceChildren();
+        const container = document.createElement('div');
+        container.classList.add('container');
+        container.classList.add('my-3');
+        container.id = 'new-no';
+        container.insertAdjacentHTML(
+            'beforeend', `
+                    <div class="container-return">
+                        <a href=""><i class="fa-solid fa-arrow-left"></i></a>
+                    </div>
+                <div class="d-flex justify-content-center align-items-center">
+                        <h1 class="display-5">Menu de noticias</h1>
+                    </div>
+                    <div class="d-flex justify-content-center align-items-center">
+                        <ul class="list-group">
+                            <li class="list-group-item"><a href="../php/newNoticia.php">Añadir una nueva noticia</a></li>
+                            <li class="list-group-item"><a href="../php/controller.php?operacion=listadocategorias">Listar las categorias</a></li>
+                        </ul>
+                    </div>
+
+            `,
+        );
+        this.main.append(container);
     }
 
 }

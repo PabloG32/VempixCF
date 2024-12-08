@@ -67,6 +67,7 @@ if (!isset($_SESSION['usuario_id'])) {
           <ul class='dropdown-menu'>
           <li><a id='newProducto' class='dropdown-item' href='#'>Productos</a></li>
           <li><a id='newCategoria' class='dropdown-item' href='#'>Categorias</a></li>
+          <li><a id='newNoticia' class='dropdown-item' href='#'>Noticias</a></li>
           </ul>
         </li>
         ";

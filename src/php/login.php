@@ -1,7 +1,8 @@
 <?php
 session_start();
 require_once('libreriaPDO.php');
-echo "<link rel='stylesheet'href='../css/toastError.css'>";
+echo "<link href='https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css' rel='stylesheet' integrity='sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH' crossorigin='anonymous'>
+<link rel='stylesheet' href='../css/login.css'>";
 
 if (isset($_POST['inicio'])) {
     $email = $_POST['email'];
@@ -31,17 +32,11 @@ if (isset($_POST['inicio'])) {
             exit();
         } else {
 ?>
-            <div id="toastError">Credenciales incorrectas</div>
+            <div class="alert alert-danger mt-5" role='alert'>Credenciales incorrectas.</div>
             <script>
-                function showToast() {
-                    var toast = document.getElementById("toastError");
-                    toast.className = "show";
-                    setTimeout(function() {
-                        toast.className = toast.className.replace("show", "");
-                        window.location.href = '../index.html';
-                    }, 3000);
-                }
-                showToast();
+                setTimeout(function() {
+                    window.location.href = '../index.html';
+                }, 2000);
             </script>
 <?php
         }

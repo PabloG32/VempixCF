@@ -17,6 +17,7 @@ class VempixcfController {
         if (adminMenu && adminMenu.style.display !== 'none') {
             this[VIEW].bindNewProducto(this.handlerNewProducto);
             this[VIEW].bindNewCategoria(this.handlerNewCategoria);
+            this[VIEW].bindNewNoticia(this.handlerNewNoticia);
         }
     }
 
@@ -89,6 +90,10 @@ class VempixcfController {
     //Creacion de categorias
     handlerNewCategoria = () => {
         this[VIEW].showMenuCategoria();
+    }
+
+    handlerNewNoticia = () => {
+        this[VIEW].showMenuNoticia();
     }
 
     handlerNoticia = () => {

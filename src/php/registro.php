@@ -1,5 +1,5 @@
-<link rel="stylesheet" href="../css/toastBien.css">
-<link rel="stylesheet" href="../css/toastError.css">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+<link rel="stylesheet" href="../css/login.css">
 <?php
 
 require_once './DaoUsuarios.php';
@@ -18,17 +18,11 @@ if (isset($_POST['alta'])) {
     // Comprobar si el usuario ya existe en la base de datos
     if ($daoUsu->existeUsuario($email)) {
 ?>
-        <div id="toastError">El usuario ya existe</div>
+        <div class="alert alert-danger mt-5" role='alert'>El usuario ya existe.</div>
         <script>
-            function showToast() {
-                var toast = document.getElementById("toastError");
-                toast.className = "show";
-                setTimeout(function() {
-                    toast.className = toast.className.replace("show", "");
-                    window.location.href = '../index.html';
-                }, 2000);
-            }
-            showToast();
+            setTimeout(function() {
+                window.location.href = '../index.html';
+            }, 2000);
         </script>
     <?php
     } else {
@@ -41,17 +35,11 @@ if (isset($_POST['alta'])) {
 
         $daoUsu->insertar($usuario);
     ?>
-        <div id="toastBien">Usuario creado correctamente</div>
+        <div class="alert alert-success mt-5" role='alert'>Usuario creado correctamente.</div>
         <script>
-            function showToast() {
-                var toast = document.getElementById("toastBien");
-                toast.className = "show";
-                setTimeout(function() {
-                    toast.className = toast.className.replace("show", "");
-                    window.location.href = '../index.html';
-                }, 2000);
-            }
-            showToast();
+            setTimeout(function() {
+                window.location.href = '../index.html';
+            }, 2000);
         </script>
 <?php
     }
