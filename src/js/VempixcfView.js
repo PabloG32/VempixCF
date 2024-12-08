@@ -415,7 +415,7 @@ class VempixcfView {
             containerNot.innerHTML = `
                 <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg" style="background-color: black;">
                     <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
-                        <h3 class="mb-4 lh-1 fw-bold" data-bs-toggle="modal" data-bs-target="#${noticia.id}">${noticia.titulo}</h3>
+                        <h3 class="mb-4 lh-1 fw-bold">${noticia.titulo}</h3>
                         <ul class="d-flex list-unstyled mt-auto">
                             <li class="d-flex align-items-center me-3">
                                 <small>CrossFit</small>
@@ -425,6 +425,7 @@ class VempixcfView {
                                 <i class="fa-solid fa-calendar-days"></i>
                             </li>
                         </ul>
+                        <button class="btn btn-primary mt-3 w-100" data-bs-toggle="modal" data-bs-target="#${noticia.id}">Leer más</button>
                     </div>
                 </div>
 
