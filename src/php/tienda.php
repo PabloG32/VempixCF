@@ -95,11 +95,7 @@ if (!isset($_SESSION['usuario_id'])) {
       </div>
       <div class="carousel-inner">
         <div class="carousel-item active">
-          <img src="../img/cinturon.jpeg" class="d-block w-50 mx-auto" alt="Imagen 1">
-          <div class="carousel-caption d-none d-md-block">
-            <h5 class="text-dark">Bienvenidos a VempixCF</h5>
-            <p class="text-dark">Descubre las mejores ofertas y productos.</p>
-          </div>
+          <img src="../img/CrossFit_scene.jpeg" class="d-block w-50 mx-auto" alt="Imagen 1">
         </div>
         <div class="carousel-item">
           <img src="../img/barra.jpg" class="d-block w-50 mx-auto" alt="Imagen 2">
