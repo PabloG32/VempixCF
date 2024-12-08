@@ -32,3 +32,11 @@ Table paises{
   Codigo varchar(2) [pk]
   Pais varchar(100)
 }
+
+Table noticias{
+  id int(2) [pk]
+  titulo varchar(200)
+  contenido varchar(255)
+  fecha date
+  imagen longblob
+}
