@@ -3,8 +3,8 @@
 
 <head>
     <meta charset="UTF-8">
-    <link rel="icon" href="../img/Logo.jpeg" type="image/jpeg">
-    <title>Añadir una noticia</title>
+    <link rel="icon" href="../img/Logo.png" type="image/jpeg">
+    <title>VempixCF</title>
     <link rel="stylesheet" href="../css/productos.css">
 </head>
 

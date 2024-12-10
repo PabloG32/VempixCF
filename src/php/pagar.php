@@ -26,7 +26,7 @@ if (isset($_POST['country'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="../img/Logo.jpeg" type="image/jpeg">
+    <link rel="icon" href="../img/Logo.png" type="image/jpeg">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="../css/checkout.css">
@@ -91,24 +91,19 @@ if (isset($_POST['country'])) {
                     <h4 class="mb-3">Dirección de facturación</h4>
 
                     <div class="row g-3">
-                        <div class="col-sm-6">
+                        <div class="col-sm-12">
                             <label for="firstName" class="form-label">Nombre</label>
-                            <input type="text" class="form-control" id="firstName">
-                        </div>
-
-                        <div class="col-sm-6">
-                            <label for="lastName" class="form-label">Apellidos</label>
-                            <input type="text" class="form-control" id="lastName">
+                            <input type="text" class="form-control" id="firstName" value="<?= $_SESSION['nombre']; ?>">
                         </div>
 
                         <div class="col-12">
                             <label for="email" class="form-label">Email </label>
-                            <input type="email" class="form-control" id="email" placeholder="nombre@dominio.com">
+                            <input type="email" class="form-control" id="email" value="<?= $_SESSION['email']; ?>">
                         </div>
 
                         <div class="col-12">
                             <label for="address" class="form-label">Dirección</label>
-                            <input type="text" class="form-control" id="address">
+                            <input type="text" class="form-control" id="address" value="<?= $_SESSION['direccion']; ?>">
                         </div>
 
                         <div class="col-md-5">
