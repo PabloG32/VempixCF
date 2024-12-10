@@ -29,64 +29,85 @@ switch ($operacion) {
         $descripcion = $_POST['descripcion'];
         $precio = $_POST['precio'];
         $categoria = $_POST['categoria'];
-        $imagen = file_get_contents($_FILES['imagen']['tmp_name']);
 
-        // Comprobar si el producto ya existe en la base de datos
-        if ($daoProd->existeProducto($nombre)) {
+        if (empty($nombre) || empty($descripcion) || empty($precio) || empty($categoria) || !isset($_FILES['imagen']) || $_FILES['imagen']['error'] != UPLOAD_ERR_OK) {
 ?>
-            <div class="alert alert-danger mt-5" role='alert'>El producto con ese nombre ya existe.</div>
+            <div class="alert alert-danger mt-5" role='alert'>Ningún campo puede estar vacio.</div>
             <script>
                 setTimeout(function() {
                     window.location.href = '../php/newProducto.php';
                 }, 2000);
             </script>
-        <?php
+            <?php
         } else {
-            $producto = new Producto();
+            $imagen = file_get_contents($_FILES['imagen']['tmp_name']);
 
-            $producto->__set("nombre", $nombre);
-            $producto->__set("descripcion", $descripcion);
-            $producto->__set("precio", $precio);
-            $producto->__set("categoria", $categoria);
-            $producto->__set("imagen", $imagen);
+            if ($daoProd->existeProducto($nombre)) {
+            ?>
+                <div class="alert alert-danger mt-5" role='alert'>El producto con ese nombre ya existe.</div>
+                <script>
+                    setTimeout(function() {
+                        window.location.href = '../php/newProducto.php';
+                    }, 2000);
+                </script>
+            <?php
+            } else {
+                $producto = new Producto();
 
-            $daoProd->insertar($producto);
-        ?>
-            <div class="alert alert-success mt-5" role='alert'>Producto añadido correctamente.</div>
-            <script>
-                setTimeout(function() {
-                    window.location.href = './tienda.php';
-                }, 2000);
-            </script>
-        <?php
+                $producto->__set("nombre", $nombre);
+                $producto->__set("descripcion", $descripcion);
+                $producto->__set("precio", $precio);
+                $producto->__set("categoria", $categoria);
+                $producto->__set("imagen", $imagen);
+
+                $daoProd->insertar($producto);
+            ?>
+                <div class="alert alert-success mt-5" role='alert'>Producto añadido correctamente.</div>
+                <script>
+                    setTimeout(function() {
+                        window.location.href = './tienda.php';
+                    }, 2000);
+                </script>
+            <?php
+            }
         }
         break;
     case "crearC": //La operación de crear una nueva categoría
         $nombre = $_POST['nombre'];
 
-        // Comprobar si la categoría ya existe en la base de datos
-        if ($daoCat->existeCategoria($nombre)) {
-        ?>
-            <div class="alert alert-danger mt-5" role='alert'>La categoría con ese nombre ya existe.</div>
+        if (empty($nombre)) {
+            ?>
+            <div class="alert alert-danger mt-5" role='alert'>El nombre no puede estar vacio.</div>
             <script>
                 setTimeout(function() {
                     window.location.href = '../php/newCategoria.php';
                 }, 2000);
             </script>
-        <?php
+            <?php
         } else {
-            $categoria = new Categoria();
-            $categoria->__set("nombre", $nombre);
+            if ($daoCat->existeCategoria($nombre)) {
+            ?>
+                <div class="alert alert-danger mt-5" role='alert'>La categoría con ese nombre ya existe.</div>
+                <script>
+                    setTimeout(function() {
+                        window.location.href = '../php/newCategoria.php';
+                    }, 2000);
+                </script>
+            <?php
+            } else {
+                $categoria = new Categoria();
+                $categoria->__set("nombre", $nombre);
 
-            $daoCat->insertar($categoria);
-        ?>
-            <div class="alert alert-success mt-5" role='alert'>Categoría añadida correctamente.</div>
-            <script>
-                setTimeout(function() {
-                    window.location.href = './tienda.php';
-                }, 2000);
-            </script>
-        <?php
+                $daoCat->insertar($categoria);
+            ?>
+                <div class="alert alert-success mt-5" role='alert'>Categoría añadida correctamente.</div>
+                <script>
+                    setTimeout(function() {
+                        window.location.href = './tienda.php';
+                    }, 2000);
+                </script>
+            <?php
+            }
         }
         break;
     case "listadocategorias": //Listar las categorias
@@ -100,36 +121,46 @@ switch ($operacion) {
         $titulo = $_POST['titulo'];
         $contenido = $_POST['contenido'];
         $fecha = $_POST['fecha'];
-        $imagen = file_get_contents($_FILES['imagen']['tmp_name']);
 
-        // Comprobar si el producto ya existe en la base de datos
-        if ($daoNot->existeNoticia($titulo)) {
-        ?>
-            <div class="alert alert-danger mt-5" role='alert'>La noticia ya existe.</div>
+        if (empty($titulo) || empty($contenido) || empty($fecha) || !isset($_FILES['imagen']) || $_FILES['imagen']['error'] != UPLOAD_ERR_OK) {
+            ?>
+            <div class="alert alert-danger mt-5" role='alert'>Ningún campo puede estar vacio.</div>
             <script>
                 setTimeout(function() {
                     window.location.href = './tienda.php';
                 }, 2000);
             </script>
-        <?php
+            <?php
         } else {
-            $noticia = new Noticia();
+            $imagen = file_get_contents($_FILES['imagen']['tmp_name']);
 
-            $noticia->__set("titulo", $titulo);
-            $noticia->__set("contenido", $contenido);
-            $noticia->__set("fecha", $fecha);
-            $noticia->__set("imagen", $imagen);
+            if ($daoNot->existeNoticia($titulo)) {
+            ?>
+                <div class="alert alert-danger mt-5" role='alert'>La noticia ya existe.</div>
+                <script>
+                    setTimeout(function() {
+                        window.location.href = './tienda.php';
+                    }, 2000);
+                </script>
+            <?php
+            } else {
+                $noticia = new Noticia();
 
-            $daoNot->insertar($noticia);
-        ?>
-            <div class="alert alert-success mt-5" role='alert'>Noticia añadida correctamente.</div>
-            <script>
-                setTimeout(function() {
-                    window.location.href = './tienda.php';
-                }, 2000);
-            </script>
+                $noticia->__set("titulo", $titulo);
+                $noticia->__set("contenido", $contenido);
+                $noticia->__set("fecha", $fecha);
+                $noticia->__set("imagen", $imagen);
 
+                $daoNot->insertar($noticia);
+            ?>
+                <div class="alert alert-success mt-5" role='alert'>Noticia añadida correctamente.</div>
+                <script>
+                    setTimeout(function() {
+                        window.location.href = './tienda.php';
+                    }, 2000);
+                </script>
 <?php
+            }
         }
         break;
     case "listadonoticias":

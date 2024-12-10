@@ -24,9 +24,9 @@
     $base = "vempixcf";
     $daoCat = new DaoCategoria($base);
 
-    if (isset($_POST['Borrar']) && isset($_POST['Selec']))  //Si hemos seleccionado alguna categoria y pulsado borrar
-    {
-        $selec = $_POST['Selec']; //Recogemos los ids del los checkboxes seleccionados
+    //Borrar las categorias seleccionadas
+    if (isset($_POST['Borrar']) && isset($_POST['Selec'])) {
+        $selec = $_POST['Selec'];
 
         foreach ($selec as $clave => $valor) {
             $daoCat->Borrar($clave);

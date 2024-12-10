@@ -15,32 +15,51 @@ if (isset($_POST['alta'])) {
     $direccion = $_POST['direccion'];
     $rol = 1;
 
-    // Comprobar si el usuario ya existe en la base de datos
-    if ($daoUsu->existeUsuario($email)) {
+    if (empty($email) || empty($nombre) || empty($password) || empty($direccion)) {
 ?>
-        <div class="alert alert-danger mt-5" role='alert'>El usuario ya existe.</div>
+        <div class="alert alert-danger mt-5" role='alert'>Ningun campo puede estar vacío.</div>
         <script>
             setTimeout(function() {
                 window.location.href = '../index.html';
             }, 2000);
         </script>
     <?php
-    } else {
-        $usuario = new Usuario();
-        $usuario->__set("nombre", $nombre);
-        $usuario->__set("email", $email);
-        $usuario->__set("password", $password);
-        $usuario->__set("direccion", $direccion);
-        $usuario->__set("rol", $rol);
-
-        $daoUsu->insertar($usuario);
+    } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
     ?>
-        <div class="alert alert-success mt-5" role='alert'>Usuario creado correctamente.</div>
+        <div class="alert alert-danger mt-5" role='alert'>El correo electrónico ingresado no es válido.</div>
         <script>
             setTimeout(function() {
                 window.location.href = '../index.html';
             }, 2000);
         </script>
+        <?php
+    } else {
+        if ($daoUsu->existeUsuario($email)) {
+        ?>
+            <div class="alert alert-danger mt-5" role='alert'>El usuario ya existe.</div>
+            <script>
+                setTimeout(function() {
+                    window.location.href = '../index.html';
+                }, 2000);
+            </script>
+        <?php
+        } else {
+            $usuario = new Usuario();
+            $usuario->__set("nombre", $nombre);
+            $usuario->__set("email", $email);
+            $usuario->__set("password", $password);
+            $usuario->__set("direccion", $direccion);
+            $usuario->__set("rol", $rol);
+
+            $daoUsu->insertar($usuario);
+        ?>
+            <div class="alert alert-success mt-5" role='alert'>Usuario creado correctamente.</div>
+            <script>
+                setTimeout(function() {
+                    window.location.href = '../index.html';
+                }, 2000);
+            </script>
 <?php
+        }
     }
 }

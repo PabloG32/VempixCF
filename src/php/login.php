@@ -10,13 +10,18 @@ if (isset($_POST['inicio'])) {
 
     // Validar campos vacíos
     if (empty($email) || empty($password)) {
-        die("Debe llenar todos los campos.");
-    }
+?>
+        <div class="alert alert-danger mt-5" role='alert'>No se admiten campos vacios.</div>
+        <script>
+            setTimeout(function() {
+                window.location.href = '../index.html';
+            }, 2000);
+        </script>
+        <?php
+    } else {
 
-    try {
         $db = new DB('vempixcf');
 
-        //Buscamos el usuario con dicho email
         $sql = "SELECT * FROM usuarios WHERE email = '$email'";
         $usuario = $db->ConsultaDatos($sql);
 
@@ -31,7 +36,7 @@ if (isset($_POST['inicio'])) {
             echo "<script>window.location.href='../php/tienda.php';</script>";
             exit();
         } else {
-?>
+        ?>
             <div class="alert alert-danger mt-5" role='alert'>Credenciales incorrectas.</div>
             <script>
                 setTimeout(function() {
@@ -40,7 +45,5 @@ if (isset($_POST['inicio'])) {
             </script>
 <?php
         }
-    } catch (PDOException $e) {
-        echo "Error de conexión: " . $e->getMessage();
     }
 }

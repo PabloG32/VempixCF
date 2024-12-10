@@ -7,6 +7,7 @@ class DaoNoticia extends DB
 {
     public $noticias = array();
 
+    //Lista el contenido de la tabla
     public function listar()
     {
         $consulta = "select * from noticias";
@@ -30,6 +31,7 @@ class DaoNoticia extends DB
         }
     }
 
+    //Metodo para insertar una notica
     public function insertar($noticia)
     {
 
@@ -45,6 +47,7 @@ class DaoNoticia extends DB
         $this->ConsultaSimple($consulta, $param);
     }
 
+    //Metodo para borrar la notica
     public function Borrar($id)
     {
         $consulta = "delete from noticias where id=:id";
@@ -54,6 +57,7 @@ class DaoNoticia extends DB
         $this->ConsultaSimple($consulta, $param);
     }
 
+    //Metodo para comprobar si existe esa notica
     public function existeNoticia($titulo)
     {
         $consulta = "SELECT COUNT(*) FROM noticias WHERE titulo = :titulo";

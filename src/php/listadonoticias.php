@@ -24,6 +24,7 @@
     $base = "vempixcf";
     $daoNot = new DaoNoticia($base);
 
+    //Borrar las noticias seleccionadas
     if (isset($_POST['Borrar']) && isset($_POST['Selec'])) {
         $selec = $_POST['Selec'];
 

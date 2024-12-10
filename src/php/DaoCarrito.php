@@ -24,11 +24,7 @@ class DaoCarrito extends DB
             ':producto_id' => $producto_id,
             ':cantidad' => $cantidad
         ];
-        try {
-            $this->consultaSimple($sql, $params);
-        } catch (PDOException $e) {
-            throw new Exception("Error al agregar el producto al carrito: " . $e->getMessage());
-        }
+        $this->consultaSimple($sql, $params);
     }
 
     // Método para obtener los productos que están en el carrito del usuario
@@ -39,11 +35,7 @@ class DaoCarrito extends DB
                 JOIN carrito c ON p.id = c.idProducto
                 WHERE c.idUsuario = :usuario_id";
         $params = [':usuario_id' => $usuario_id];
-        try {
-            return $this->consultaDatos($sql, $params);
-        } catch (PDOException $e) {
-            throw new Exception("Error al obtener los productos del carrito: " . $e->getMessage());
-        }
+        return $this->consultaDatos($sql, $params);
     }
 
     // Método para eliminar un producto del carrito del usuario
@@ -54,11 +46,7 @@ class DaoCarrito extends DB
             ':usuario_id' => $usuario_id,
             ':producto_id' => $producto_id
         ];
-        try {
-            $this->consultaSimple($sql, $params);
-        } catch (PDOException $e) {
-            throw new Exception("Error al eliminar el producto del carrito: " . $e->getMessage());
-        }
+        $this->consultaSimple($sql, $params);
     }
 
     // Método para vaciar el carrito del usuario
@@ -66,10 +54,6 @@ class DaoCarrito extends DB
     {
         $sql = "DELETE FROM carrito WHERE idUsuario = :usuario_id";
         $params = [':usuario_id' => $usuario_id];
-        try {
-            $this->consultaSimple($sql, $params);
-        } catch (PDOException $e) {
-            throw new Exception("Error al vaciar el carrito: " . $e->getMessage());
-        }
+        $this->consultaSimple($sql, $params);
     }
 }

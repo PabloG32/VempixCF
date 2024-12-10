@@ -11,7 +11,8 @@ class DaoUsuarios extends DB
         $this->dbname = $base;
     }
 
-    public function insertar($usu) //Insertar usuario
+    //Insertar usuario
+    public function insertar($usu)
     {
         $consulta = "INSERT INTO usuarios (nombre, email, password, direccion, rol) VALUES (:nombre, :email, :password, :direccion, :rol)";
 
@@ -26,8 +27,8 @@ class DaoUsuarios extends DB
         $this->ConsultaSimple($consulta, $param);
     }
 
-
-    public function existeUsuario($email) //Metodo para comprobar si existe ese usuario
+    //Metodo para comprobar si existe ese usuario
+    public function existeUsuario($email)
     {
         $consulta = "SELECT COUNT(*) FROM usuarios WHERE email = :email";
         $param = [':email' => $email];

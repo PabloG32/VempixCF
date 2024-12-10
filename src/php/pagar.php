@@ -103,12 +103,12 @@ if (isset($_POST['country'])) {
 
                         <div class="col-12">
                             <label for="email" class="form-label">Email </label>
-                            <input type="email" class="form-control" id="email" placeholder="mail@email.com">
+                            <input type="email" class="form-control" id="email" placeholder="nombre@dominio.com">
                         </div>
 
                         <div class="col-12">
                             <label for="address" class="form-label">Dirección</label>
-                            <input type="text" class="form-control" id="address" placeholder="calle Nº34">
+                            <input type="text" class="form-control" id="address">
                         </div>
 
                         <div class="col-md-5">
@@ -191,6 +191,8 @@ if (isset($_POST['country'])) {
                     <hr class="my-4">
                     <input class="w-100 btn btn-primary btn-lg" type="submit" name="pagar" value="Pagar">
                     </form>
+                    <br>
+                    <button class=" mt-2 w-100 btn btn-primary btn-lg" onclick="window.location.href='../php/accionesCarrito.php?accion=ver';">Volver</button>
                 </div>
             </div>
         </main>

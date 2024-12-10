@@ -7,7 +7,8 @@ class DaoProducto extends DB
 {
     public $productos = array();
 
-    public function listar() //Lista el contenido de la tabla
+    //Lista el contenido de la tabla
+    public function listar()
     {
         $consulta = "select * from productos ";
 
@@ -32,7 +33,8 @@ class DaoProducto extends DB
         }
     }
 
-    public function insertar($producto) //Metodo para insertar un producto
+    //Metodo para insertar un producto
+    public function insertar($producto)
     {
 
         $consulta = "insert into productos values(NULL, :nombre, :descripcion, :precio, :categoria, :imagen)";
@@ -48,7 +50,8 @@ class DaoProducto extends DB
         $this->ConsultaSimple($consulta, $param);
     }
 
-    public function Borrar($id) //Metodo que borra un producto
+    //Metodo que borra un producto
+    public function Borrar($id)
     {
         $consulta = "delete from productos where id=:id";
 
@@ -57,7 +60,8 @@ class DaoProducto extends DB
         $this->ConsultaSimple($consulta, $param);
     }
 
-    public function existeProducto($nombre) //Metodo para comprobar si esxiste ese producto
+    //Metodo para comprobar si esxiste ese producto
+    public function existeProducto($nombre)
     {
         $consulta = "SELECT COUNT(*) FROM productos WHERE nombre = :nombre";
         $param = [':nombre' => $nombre];
